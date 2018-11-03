@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/grad"
+
+    tools:context=".location_details.Location_Details_Activity">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/location_details_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@android:color/transparent"
+        app:navigationIcon="@drawable/ic_keyboard_arrow_left_accent"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        android:elevation="10dp"/>
+
+    <ImageView
+        android:id="@+id/location_details_img_fullsize"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:scaleType="centerCrop"
+        android:transitionName="imageLocation"
+        app:srcCompat="@drawable/no_image"
+        android:alpha="0.80">
+
+    </ImageView>
+
+    <TextView
+        android:id="@+id/location_details_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="-45dp"
+        android:padding="5dp"
+        android:text="Earth (C-137)"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:textSize="22sp"
+        android:transitionName="nameLocation"
+        android:layout_below="@+id/location_details_img_fullsize"
+        android:textAlignment="textStart"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/location_details_img_fullsize">
+
+        <TextView
+            android:id="@+id/location_details_type_placeholder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/location_details_type_placeholder_text"
+            android:textSize="18sp"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"
+            android:textAlignment="center"/>
+
+        <TextView
+            android:id="@+id/location_details_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Planet"
+            android:textSize="18sp"
+            android:textColor="@color/colorValidate"
+            android:textAlignment="center"
+            android:layout_toEndOf="@id/location_details_type_placeholder"/>
+
+
+        <TextView
+            android:id="@+id/location_details_dimension_placeholder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/location_details_dimension_placeholder_text"
+            android:textSize="18sp"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:layout_below="@id/location_details_type_placeholder" />
+
+
+        <TextView
+            android:id="@+id/location_details_dimension"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/location_details_type"
+            android:paddingStart="0dp"
+            android:paddingEnd="5dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:textSize="18sp"
+            android:text="Post-Apocalyptic Dimension"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/colorValidate"
+            android:layout_toEndOf="@id/location_details_dimension_placeholder"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/location_details_dimension">
+
+            <TextView
+                android:id="@+id/location_details_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="30dp"
+                android:padding="16dp"
+                android:text="Pas de description disponible."
+                android:textAlignment="center"
+                android:textColor="@color/colorValidate"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/location_details_separator"
+                android:layout_below="@id/location_details_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:text="@string/location_details_separator_text"
+                android:paddingStart="0dp"
+                android:paddingEnd="4dp"
+                android:textSize="18sp"
+                android:textColor="@color/colorAccent"
+                android:textStyle="bold"
+                android:textAlignment="center"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/location_details_recyclerview"
+                android:layout_below="@id/location_details_separator"
+                android:layout_width="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="15dp">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+</RelativeLayout>

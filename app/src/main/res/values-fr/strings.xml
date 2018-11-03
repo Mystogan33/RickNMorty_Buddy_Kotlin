@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Kotlin Rick</string>
+
+    <string name="location_details_separator_text">Résidents de ce lieu</string>
+    <string name="location_details_type_placeholder_text">Type</string>
+    <string name="location_details_dimension_placeholder_text">Dimension</string>
+
+    <string name="locations_fragment_query_hint">Rechercher un lieu&#8230;</string>
+
+    <string name="locations_fragment_item_type">Type</string>
+    <string name="locations_fragment_item_dimension">Dimension</string>
+
+    <string name="character_details_gender">Genre</string>
+    <string name="character_details_status">Statut</string>
+    <string name="character_details_origin">Origine</string>
+    <string name="character_details_last_location">Dernière apparition</string>
+    <string name="character_details_description">Description</string>
+    <string name="character_details_episodes_placeholder_text">Apparait dans les épisodes</string>
+
+    <string name="characters_fragment_query_hint">Rechercher un personnage&#8230;</string>
+
+    <string name="characters_fragment_item_status">Statut</string>
+    <string name="characters_fragment_item_species">Espèce(s)</string>
+    <string name="characters_fragment_item_gender">Genre</string>
+    <string name="characters_fragment_item_origin">Origine</string>
+    <string name="characters_fragment_item_last_location">Dernière apparition</string>
+
+    <string name="episodes_fragment_query_hint">Rechercher un épisode&#8230;</string>
+
+    <string name="episode_details_separator_text">Personnages de cet épisode</string>
+
+    <string name="tab_title_characters">Personnages</string>
+    <string name="tab_title_episodes">Episodes</string>
+    <string name="tab_title_locations">Lieux</string>
+
+    <string name="status_unknown">Inconnu</string>
+    <string name="status_alive">En vie</string>
+    <string name="status_dead">Mort(e)</string>
+
+    <string name="gender_male">Masculin</string>
+    <string name="gender_female">Féminin</string>
+    <string name="gender_unknown">Inconnu</string>
+</resources>
