@@ -31,9 +31,9 @@ class RecyclerViewAdapter(private val mContext: Fragment, private var listLocati
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
-        holder.location_fragment_item_name!!.text = listLocations!![position].name
-        holder.location_fragment_item_type!!.text = listLocations!![position].type
-        holder.location_fragment_item_dimension!!.text = listLocations!![position].dimension
+        holder.location_fragment_item_name.text = listLocations!![position].name
+        holder.location_fragment_item_type.text = listLocations!![position].type
+        holder.location_fragment_item_dimension.text = listLocations!![position].dimension
 
         val imageView = holder.location_fragment_item__img
 
@@ -42,7 +42,7 @@ class RecyclerViewAdapter(private val mContext: Fragment, private var listLocati
             .networkPolicy(NetworkPolicy.OFFLINE)
             .placeholder(R.drawable.ic_launcher_background)
             .error(R.drawable.no_image)
-            .into(imageView!!, object : Callback {
+            .into(imageView, object : Callback {
                 override fun onSuccess() {}
                 override fun onError() {
                     Picasso.with(mContext.activity)
@@ -56,14 +56,14 @@ class RecyclerViewAdapter(private val mContext: Fragment, private var listLocati
                 }
             })
 
-        holder.cardView!!.setOnClickListener {
+        holder.cardView.setOnClickListener {
             val intent = Intent(mContext.activity, Location_Details_Activity::class.java)
             intent.putExtra("location_details", listLocations!![position])
 
             // Check if we're running on Android 5.0 or higher
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 val optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(mContext.activity!!,
-                    (holder.location_fragment_item__img)!!, "imageLocation")
+                    holder.location_fragment_item__img, "imageLocation")
                 mContext.startActivity(intent, optionsCompat.toBundle())
             } else {
                 mContext.startActivity(intent)
@@ -84,15 +84,15 @@ class RecyclerViewAdapter(private val mContext: Fragment, private var listLocati
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         @BindView(R.id.location_fragment_item__img)
-        internal var location_fragment_item__img: ImageView? = null
+        lateinit var location_fragment_item__img: ImageView
         @BindView(R.id.location_fragment_item_name)
-        internal var location_fragment_item_name: TextView? = null
+        lateinit var location_fragment_item_name: TextView
         @BindView(R.id.location_fragment_item_type)
-        internal var location_fragment_item_type: TextView? = null
+        lateinit var location_fragment_item_type: TextView
         @BindView(R.id.location_fragment_item_dimension)
-        internal var location_fragment_item_dimension: TextView? = null
+        lateinit var location_fragment_item_dimension: TextView
         @BindView(R.id.cardview_fragment_item_id)
-        internal var cardView: CardView? = null
+        lateinit var cardView: CardView
 
         init {
             ButterKnife.bind(this, itemView)

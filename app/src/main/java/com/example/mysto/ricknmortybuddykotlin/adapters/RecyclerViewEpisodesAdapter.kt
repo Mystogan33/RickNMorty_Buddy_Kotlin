@@ -54,7 +54,7 @@ class RecyclerViewEpisodesAdapter(
                 }
             })
 
-        imageView!!.setOnClickListener {
+        imageView.setOnClickListener {
             val intent = Intent(mContext, Episode_Details_Activity::class.java)
             intent.putExtra("episode_details", listEpisodes[position])
 
@@ -85,7 +85,7 @@ class RecyclerViewEpisodesAdapter(
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         @BindView(R.id.img)
-        internal var img_episode: ImageView? = null
+        lateinit var img_episode: ImageView
 
         init {
             ButterKnife.bind(this, itemView)

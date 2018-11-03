@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+/*apply plugin: 'kotlin-android-extensions'*/
 apply plugin: 'kotlin-kapt'
 
 android {
@@ -21,9 +21,9 @@ android {
     }
 }
 
-kapt {
+/*kapt {
     generateStubs = true
-}
+}*/
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -44,7 +44,7 @@ dependencies {
 
     // Butterknife
     implementation 'com.jakewharton:butterknife:9.0.0-rc1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0-rc1'
+    kapt 'com.jakewharton:butterknife-compiler:9.0.0-rc1'
 
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'

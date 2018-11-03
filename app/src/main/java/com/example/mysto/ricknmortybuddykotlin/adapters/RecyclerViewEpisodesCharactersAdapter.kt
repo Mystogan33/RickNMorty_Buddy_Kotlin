@@ -38,7 +38,7 @@ class RecyclerViewEpisodesCharactersAdapter(
             .networkPolicy(NetworkPolicy.OFFLINE)
             .placeholder(R.drawable.ic_launcher_background)
             .error(R.drawable.no_data)
-            .into(imageView!!, object : Callback {
+            .into(imageView, object : Callback {
                 override fun onSuccess() {}
                 override fun onError() {
                     Picasso.with(mContext.applicationContext)
@@ -83,7 +83,7 @@ class RecyclerViewEpisodesCharactersAdapter(
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         @BindView(R.id.img)
-        internal var img_character: ImageView? = null
+        lateinit var img_character: ImageView
 
         init {
             ButterKnife.bind(this, itemView)

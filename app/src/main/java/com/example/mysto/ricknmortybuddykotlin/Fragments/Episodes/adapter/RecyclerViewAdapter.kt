@@ -30,8 +30,8 @@ class RecyclerViewAdapter(private val mContext: Fragment, private var listEpisod
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
-        holder.episode_fragment_item_name!!.text = listEpisodes!![position].name
-        holder.episode_fragment_item_season!!.text = listEpisodes!![position].episode
+        holder.episode_fragment_item_name.text = listEpisodes!![position].name
+        holder.episode_fragment_item_season.text = listEpisodes!![position].episode
 
         val imageView = holder.episode_fragment_item__img
 
@@ -42,7 +42,7 @@ class RecyclerViewAdapter(private val mContext: Fragment, private var listEpisod
             .centerCrop()
             .placeholder(R.drawable.ic_launcher_background)
             .error(R.drawable.no_image)
-            .into(imageView!!, object : Callback {
+            .into(imageView, object : Callback {
                 override fun onSuccess() {}
                 override fun onError() {
                     Picasso.with(mContext.activity)
@@ -58,7 +58,7 @@ class RecyclerViewAdapter(private val mContext: Fragment, private var listEpisod
                 }
             })
 
-        holder.cardView!!.setOnClickListener {
+        holder.cardView.setOnClickListener {
             val intent = Intent(mContext.activity, Episode_Details_Activity::class.java)
             intent.putExtra("episode_details", listEpisodes!![position])
 
@@ -89,13 +89,13 @@ class RecyclerViewAdapter(private val mContext: Fragment, private var listEpisod
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         @BindView(R.id.episode_fragment_item_name)
-        internal var episode_fragment_item_name: TextView? = null
+        lateinit var episode_fragment_item_name: TextView
         @BindView(R.id.episode_fragment_item_season)
-        internal var episode_fragment_item_season: TextView? = null
+        lateinit var episode_fragment_item_season: TextView
         @BindView(R.id.episode_fragment_item__img)
-        internal var episode_fragment_item__img: ImageView? = null
+        lateinit var episode_fragment_item__img: ImageView
         @BindView(R.id.cardview_fragment_item_id)
-        internal var cardView: CardView? = null
+        lateinit var cardView: CardView
 
         init {
             ButterKnife.bind(this, itemView)

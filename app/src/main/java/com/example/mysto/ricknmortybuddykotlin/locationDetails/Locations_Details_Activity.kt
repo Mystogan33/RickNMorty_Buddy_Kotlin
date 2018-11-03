@@ -24,35 +24,30 @@ import retrofit2.Response
 
 class Location_Details_Activity : AppCompatActivity() {
 
-    internal var location_details: Location? = null
+    private var location_details: Location? = null
 
     @BindView(R.id.location_details_img_fullsize)
-    internal var location_details_img_fullsize: ImageView? = null
+    lateinit var location_details_img_fullsize: ImageView
     @BindView(R.id.location_details_name)
-    internal var location_details_name: TextView? = null
+    lateinit var location_details_name: TextView
     @BindView(R.id.location_details_dimension)
-    internal var location_details_dimension: TextView? = null
+    lateinit var location_details_dimension: TextView
     @BindView(R.id.location_details_type)
-    internal var location_details_type: TextView? = null
+    lateinit var location_details_type: TextView
     @BindView(R.id.location_details_recyclerview)
-    internal var recyclerView: RecyclerView? = null
+    lateinit var recyclerView: RecyclerView
     @BindView(R.id.location_details_toolbar)
-    internal var toolbar: Toolbar? = null
+    lateinit var toolbar: Toolbar
 
-    internal var gson: Gson? = null
-    internal var service: GetDataService? = null
+    internal var gson: Gson? = Gson()
+    private var service: GetDataService? = RetrofitClientInstance.retrofitInstance?.create(GetDataService::class.java)
 
     internal var adapter: RecyclerViewEpisodesCharactersAdapter? = null
-    internal var listURLCharacters: List<String>? = null
+    private var listURLCharacters: List<String>? = null
     internal var listCharacters: MutableList<Character>? = null
 
-    internal var extras: Bundle? = null
+    private var extras: Bundle? = null
     internal var app: AppCompatActivity? = null
-
-    init {
-        gson = Gson()
-        service = RetrofitClientInstance.retrofitInstance?.create(GetDataService::class.java)
-    }
 
     private fun initActionBar() {
         setSupportActionBar(toolbar)
@@ -64,9 +59,9 @@ class Location_Details_Activity : AppCompatActivity() {
     }
 
     private fun setValuesToViews() {
-        location_details_name!!.text = location_details?.name
-        location_details_dimension!!.text = location_details?.dimension
-        location_details_type!!.text = location_details?.type
+        location_details_name.text = location_details?.name
+        location_details_dimension.text = location_details?.dimension
+        location_details_type.text = location_details?.type
     }
 
     private fun loadCharacters() {
@@ -124,8 +119,8 @@ class Location_Details_Activity : AppCompatActivity() {
 
         listCharacters = ArrayList()
         adapter = RecyclerViewEpisodesCharactersAdapter(listCharacters!!, this)
-        recyclerView!!.layoutManager = GridLayoutManager(this, 5)
-        recyclerView!!.adapter = adapter as RecyclerView.Adapter<*>
+        recyclerView.layoutManager = GridLayoutManager(this, 5)
+        recyclerView.adapter = adapter as RecyclerView.Adapter<*>
 
         if (extras != null) {
             location_details = extras!!.getSerializable("location_details") as Location

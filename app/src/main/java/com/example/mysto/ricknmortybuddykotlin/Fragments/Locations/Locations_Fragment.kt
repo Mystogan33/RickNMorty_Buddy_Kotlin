@@ -34,23 +34,18 @@ class Locations_Fragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Ref
 
     internal var view: View? = null
     @BindView(locationsRecyclerView)
-    internal var rv_locations: RecyclerView? = null
+    lateinit var rv_locations: RecyclerView
     @BindView(R.id.swipe_container)
-    internal var mSwipeRefreshLayout: SwipeRefreshLayout? = null
+    lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
     @BindView(R.id.searchViewQuery)
-    internal var searchViewLocations: SearchView? = null
+    lateinit var searchViewLocations: SearchView
 
     internal var rawLocationsResponse: RawLocationsServerResponse? = null
     internal var listLocations: MutableList<Location>? = null
-    internal var gson: Gson
+    internal var gson: Gson = Gson()
     internal var adapter: RecyclerViewAdapter? = null
     internal var sharedPreferences: SharedPreferences? = null
-    internal var service: GetDataService
-
-    init {
-        gson = Gson()
-        service = RetrofitClientInstance.retrofitInstance!!.create(GetDataService::class.java)
-    }
+    private var service: GetDataService = RetrofitClientInstance.retrofitInstance!!.create(GetDataService::class.java)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -59,23 +54,23 @@ class Locations_Fragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Ref
 
         listLocations = ArrayList()
         adapter = RecyclerViewAdapter(this, listLocations)
-        rv_locations!!.layoutManager = LinearLayoutManager(view!!.context)
-        rv_locations!!.adapter = adapter
+        rv_locations.layoutManager = LinearLayoutManager(view!!.context)
+        rv_locations.adapter = adapter
 
         sharedPreferences = view!!.context.getSharedPreferences("APP_DATA", Context.MODE_PRIVATE)
 
         // Refresh Layout
-        mSwipeRefreshLayout!!.setOnRefreshListener(this)
-        mSwipeRefreshLayout!!.setColorSchemeResources(
+        mSwipeRefreshLayout.setOnRefreshListener(this)
+        mSwipeRefreshLayout.setColorSchemeResources(
             android.R.color.holo_green_dark,
             android.R.color.holo_orange_dark,
             android.R.color.holo_blue_dark
         )
-        mSwipeRefreshLayout!!.setProgressBackgroundColorSchemeResource(R.color.colorPrimaryDark)
+        mSwipeRefreshLayout.setProgressBackgroundColorSchemeResource(R.color.colorPrimaryDark)
 
-        searchViewLocations!!.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        searchViewLocations.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(userInput: String): Boolean {
-                if (!searchViewLocations!!.isIconified) searchViewLocations!!.isIconified = true
+                if (!searchViewLocations.isIconified) searchViewLocations.isIconified = true
                 return false
             }
 
@@ -98,7 +93,7 @@ class Locations_Fragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Ref
             adapter!!.setFilter(listLocations!!)
 
         } else {
-            mSwipeRefreshLayout!!.post { loadRecyclerViewData() }
+            mSwipeRefreshLayout.post { loadRecyclerViewData() }
         }
 
         return view
@@ -106,7 +101,7 @@ class Locations_Fragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Ref
 
     override fun loadRecyclerViewData() {
 
-        mSwipeRefreshLayout!!.isRefreshing = true
+        mSwipeRefreshLayout.isRefreshing = true
 
         val call = service.allLocations
         call.enqueue(object : Callback<RawLocationsServerResponse> {
@@ -129,7 +124,7 @@ class Locations_Fragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Ref
 
                 Toast.makeText(view!!.context, "Vos données sont désormais sauvegardées", Toast.LENGTH_SHORT).show()
 
-                mSwipeRefreshLayout!!.isRefreshing = false
+                mSwipeRefreshLayout.isRefreshing = false
             }
 
             override fun onFailure(call: Call<RawLocationsServerResponse>, t: Throwable) {
@@ -138,13 +133,13 @@ class Locations_Fragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Ref
                     "Impossible de joindre le serveur, réessayer ultérieurement",
                     Toast.LENGTH_SHORT
                 ).show()
-                mSwipeRefreshLayout!!.isRefreshing = false
+                mSwipeRefreshLayout.isRefreshing = false
             }
         })
     }
 
     private fun setFilter(pl: List<Location>, query: String): List<Location> {
-        var filter = query.toLowerCase()
+        val filter = query.toLowerCase()
         val filteredList = arrayListOf<Location>()
 
         for (model in pl) {

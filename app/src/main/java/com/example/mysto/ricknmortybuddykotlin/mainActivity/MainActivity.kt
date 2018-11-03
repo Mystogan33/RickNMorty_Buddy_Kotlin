@@ -33,19 +33,19 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
 
     @BindView(R.id.tablayout_id)
-    var mTabLayout: TabLayout? = null
+    lateinit var mTabLayout: TabLayout
     @BindView(R.id.viewpager_id)
-    var mViewPager: ViewPager? = null
+    lateinit var mViewPager: ViewPager
     @BindView(R.id.drawer_layout)
-    var mDrawerLayout: DrawerLayout? = null
+    lateinit var mDrawerLayout: DrawerLayout
     @BindView(R.id.nav_view)
-    var navigationView: NavigationView? = null
+    lateinit var navigationView: NavigationView
     @BindView(R.id.menu_button)
-    var home_button: ImageButton? = null
+    lateinit var home_button: ImageButton
     @BindView(R.id.more_button)
-    var more_button: ImageButton? = null
+    lateinit var more_button: ImageButton
     @BindView(R.id.refresh_button)
-    var refresh_button: FloatingActionButton? = null
+    lateinit var refresh_button: FloatingActionButton
 
     var mNotifier: NotificationHelperWelcomeBack? = null
     var mViewPagerAdapter: ViewPagerAdapter? = null
@@ -56,9 +56,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         ButterKnife.bind(this)
 
-        navigationView!!.setNavigationItemSelectedListener{
+        navigationView.setNavigationItemSelectedListener{
             it.isChecked = true
-            mDrawerLayout!!.closeDrawers()
+            mDrawerLayout.closeDrawers()
             true
         }
 
@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity() {
 
     @OnClick(R.id.menu_button)
     fun openDrawer() {
-        mDrawerLayout!!.openDrawer(GravityCompat.START)
+        mDrawerLayout.openDrawer(GravityCompat.START)
     }
 
     @OnClick(R.id.more_button)
@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity() {
 
     fun addTransitionAnimations() {
         if (android.os.Build.VERSION.SDK_INT <= Build.VERSION_CODES.O_MR1) {
-            mViewPager!!.setPageTransformer(true, DepthPageTransformer())
+            mViewPager.setPageTransformer(true, DepthPageTransformer())
             //mViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
         }
     }
@@ -96,9 +96,9 @@ class MainActivity : AppCompatActivity() {
         mViewPagerAdapter!!.addFragment(Episodes_Fragment() as Fragment, resources.getString(R.string.tab_title_episodes))
         mViewPagerAdapter!!.addFragment(Locations_Fragment() as Fragment, resources.getString(R.string.tab_title_locations))
 
-        mViewPager!!.adapter = mViewPagerAdapter
-        mViewPager!!.offscreenPageLimit = 2
-        mTabLayout!!.setupWithViewPager(mViewPager)
+        mViewPager.adapter = mViewPagerAdapter
+        mViewPager.offscreenPageLimit = 2
+        mTabLayout.setupWithViewPager(mViewPager)
     }
 
     fun sendNotifications() {
@@ -129,7 +129,7 @@ class MainActivity : AppCompatActivity() {
     fun initSequence() {
         val sequence = TapTargetSequence(this)
             .targets(
-                TapTarget.forView(home_button!!, "Menu", "Vous pouvez ouvrir le menu ici")
+                TapTarget.forView(home_button, "Menu", "Vous pouvez ouvrir le menu ici")
                     .outerCircleColor(R.color.tabindicatorcolor)      // Specify a color for the outer circle
                     .outerCircleAlpha(0.96f)            // Specify the alpha amount for the outer circle
                     .targetCircleColor(R.color.colorAccent)   // Specify a color for the target circle
@@ -145,7 +145,7 @@ class MainActivity : AppCompatActivity() {
                     .transparentTarget(false)           // Specify whether the target is transparent (displays the content underneath)
                     .targetRadius(60)
                     .id(1),
-                TapTarget.forView(more_button!!, "Plus d'options", "Plus d'options ici ! :)")
+                TapTarget.forView(more_button, "Plus d'options", "Plus d'options ici ! :)")
                     .outerCircleColor(R.color.tabindicatorcolor)      // Specify a color for the outer circle
                     .outerCircleAlpha(0.96f)            // Specify the alpha amount for the outer circle
                     .targetCircleColor(R.color.colorAccent)   // Specify a color for the target circle
@@ -162,7 +162,7 @@ class MainActivity : AppCompatActivity() {
                     .targetRadius(60)
                     .id(2),
                 TapTarget.forView(
-                    refresh_button!!,
+                    refresh_button,
                     "Rafraichir toutes les catégories",
                     "(A noter: Toutes les catégories sont automatiquement rafraichies chaque jour et peuvent être rafraichis avec ce bouton mais vous pouvez les rafraichir manuellement et séparément en swipant vers le bas en haut de chacune des catégories)"
                 )
@@ -188,7 +188,7 @@ class MainActivity : AppCompatActivity() {
                         1 -> {
                             openDrawer()
                             val handler = Handler()
-                            handler.postDelayed({ mDrawerLayout?.closeDrawers() }, 500)
+                            handler.postDelayed({ mDrawerLayout.closeDrawers() }, 500)
                         }
                         3 -> refreshAllFragments()
                     }

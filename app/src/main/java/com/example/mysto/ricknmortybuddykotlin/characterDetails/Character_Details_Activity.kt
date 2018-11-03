@@ -39,37 +39,37 @@ import java.util.ArrayList
 class Character_Details_Activity : AppCompatActivity() {
 
     @BindView(R.id.personnage_details__name)
-    internal var personnage_details_name: TextView? = null
+    lateinit var personnage_details_name: TextView
     @BindView(R.id.personnage_details_status)
-    internal var personnage_details_status: TextView? = null
+    lateinit var personnage_details_status: TextView
     @BindView(R.id.personnage_details_species)
-    internal var personnage_details_species: TextView? = null
+    lateinit var personnage_details_species: TextView
     @BindView(R.id.personnage_details_gender)
-    internal var personnage_details_gender: TextView? = null
+    lateinit var personnage_details_gender: TextView
     @BindView(R.id.personnage_details_origin)
-    internal var personnage_details_origin: TextView? = null
+    lateinit var personnage_details_origin: TextView
     @BindView(R.id.personnage_details_last_location)
-    internal var personnage_details_last_location: TextView? = null
+    lateinit var personnage_details_last_location: TextView
     @BindView(R.id.personnage_details_img)
-    internal var personnage_details_img: ImageView? = null
+    lateinit var personnage_details_img: ImageView
     @BindView(R.id.origin_img)
-    internal var origin_img: ImageView? = null
+    lateinit var origin_img: ImageView
     @BindView(R.id.last_location_img)
-    internal var last_location_img: ImageView? = null
+    lateinit var last_location_img: ImageView
     @BindView(R.id.relayOrigin)
-    internal var personnage_details_relay_origin: RelativeLayout? = null
+    lateinit var personnage_details_relay_origin: RelativeLayout
     @BindView(R.id.relayLastLocation)
-    internal var personnage_details_relay_last_location: RelativeLayout? = null
+    lateinit var personnage_details_relay_last_location: RelativeLayout
     @BindView(R.id.episodes_recyclerview_relay)
-    internal var episodes_recyclerview_relay: RelativeLayout? = null
+    lateinit var episodes_recyclerview_relay: RelativeLayout
     @BindView(R.id.relayStatus)
-    internal var personnage_details_relay_status: LinearLayout? = null
+    lateinit var personnage_details_relay_status: LinearLayout
     @BindView(R.id.episodes_recyclerview)
-    internal var recyclerView: RecyclerView? = null
+    lateinit var recyclerView: RecyclerView
     @BindView(R.id.cardview_episodes_of_character)
-    internal var cardView: CardView? = null
+    lateinit var cardView: CardView
     @BindView(R.id.toolbar)
-    internal var toolbar: Toolbar? = null
+    lateinit var toolbar: Toolbar
 
     internal var adapter: RecyclerViewEpisodesAdapter? = null
 
@@ -97,35 +97,35 @@ class Character_Details_Activity : AppCompatActivity() {
     }
 
     fun setValuesToViews() {
-        personnage_details_name!!.text = personnage_details!!.name
+        personnage_details_name.text = personnage_details!!.name
 
         val status = personnage_details!!.status
 
         when {
             status?.toLowerCase() == "dead" -> {
-                personnage_details_status!!.text = resources.getString(R.string.status_dead)
-                personnage_details_relay_status!!.setBackgroundColor(ContextCompat.getColor(this, R.color.colorDanger))
+                personnage_details_status.text = resources.getString(R.string.status_dead)
+                personnage_details_relay_status.setBackgroundColor(ContextCompat.getColor(this, R.color.colorDanger))
             }
-            status?.toLowerCase() == "alive" -> personnage_details_status!!.text = resources.getString(R.string.status_alive)
+            status?.toLowerCase() == "alive" -> personnage_details_status.text = resources.getString(R.string.status_alive)
             else -> {
-                personnage_details_status!!.text = resources.getString(R.string.status_unknown)
-                personnage_details_relay_status!!.setBackgroundColor(ContextCompat.getColor(this, R.color.followersBg))
+                personnage_details_status.text = resources.getString(R.string.status_unknown)
+                personnage_details_relay_status.setBackgroundColor(ContextCompat.getColor(this, R.color.followersBg))
             }
         }
 
-        personnage_details_species!!.text = personnage_details!!.species
-        personnage_details_gender!!.text = personnage_details!!.gender
+        personnage_details_species.text = personnage_details!!.species
+        personnage_details_gender.text = personnage_details!!.gender
 
         val gender = personnage_details!!.gender
 
         when {
-            gender?.toLowerCase() == "male" -> personnage_details_gender!!.text = resources.getString(R.string.gender_male)
-            gender?.toLowerCase() == "female" -> personnage_details_gender!!.text = resources.getString(R.string.gender_female)
-            else -> personnage_details_gender!!.text = resources.getString(R.string.gender_unknown)
+            gender?.toLowerCase() == "male" -> personnage_details_gender.text = resources.getString(R.string.gender_male)
+            gender?.toLowerCase() == "female" -> personnage_details_gender.text = resources.getString(R.string.gender_female)
+            else -> personnage_details_gender.text = resources.getString(R.string.gender_unknown)
         }
 
-        personnage_details_last_location!!.text = personnage_details!!.location!!.name
-        personnage_details_origin!!.text = personnage_details!!.origin!!.name
+        personnage_details_last_location.text = personnage_details!!.location!!.name
+        personnage_details_origin.text = personnage_details!!.origin!!.name
     }
 
     fun initActionBar() {
@@ -168,11 +168,11 @@ class Character_Details_Activity : AppCompatActivity() {
 
             if (location.id!! == idLastLocation) {
                 lastLocationData = location
-                personnage_details_last_location!!.text = lastLocationData?.name
+                personnage_details_last_location.text = lastLocationData?.name
 
                 this.loadImage(lastLocationData!!.image, last_location_img)
 
-                personnage_details_relay_last_location!!.setOnClickListener {
+                personnage_details_relay_last_location.setOnClickListener {
                     val intent = Intent(applicationContext, Location_Details_Activity::class.java)
                     intent.putExtra("location_details", lastLocationData)
                     startActivity(intent)
@@ -182,11 +182,11 @@ class Character_Details_Activity : AppCompatActivity() {
 
             if (location.id!! == idOrigin) {
                 originData = location
-                personnage_details_origin!!.text = originData!!.name
+                personnage_details_origin.text = originData!!.name
 
                 this.loadImage(originData!!.image, origin_img)
 
-                personnage_details_relay_origin!!.setOnClickListener {
+                personnage_details_relay_origin.setOnClickListener {
                     val intent = Intent(applicationContext, Location_Details_Activity::class.java)
                     intent.putExtra("location_details", originData)
                     startActivity(intent)
@@ -227,8 +227,8 @@ class Character_Details_Activity : AppCompatActivity() {
 
         listEpisodesDetails = ArrayList()
         adapter = RecyclerViewEpisodesAdapter(listEpisodesDetails!!, this)
-        recyclerView!!.layoutManager = GridLayoutManager(this, 5)
-        recyclerView!!.adapter = adapter as RecyclerView.Adapter<*>
+        recyclerView.layoutManager = GridLayoutManager(this, 5)
+        recyclerView.adapter = adapter as RecyclerView.Adapter<*>
 
         if (extras != null) {
             personnage_details = extras!!.getSerializable("personnage_details") as Character?
@@ -262,14 +262,14 @@ class Character_Details_Activity : AppCompatActivity() {
 
             if (listURLEpisodes != null) {
 
-                val params = episodes_recyclerview_relay!!.layoutParams as FrameLayout.LayoutParams
+                val params = episodes_recyclerview_relay.layoutParams as FrameLayout.LayoutParams
 
                 if (listURLEpisodes!!.size <= 10) {
                     params.height = FrameLayout.LayoutParams.WRAP_CONTENT
                     params.width = FrameLayout.LayoutParams.MATCH_PARENT
                 }
 
-                episodes_recyclerview_relay!!.layoutParams = params
+                episodes_recyclerview_relay.layoutParams = params
 
                 this.searchForEpisodes()
 

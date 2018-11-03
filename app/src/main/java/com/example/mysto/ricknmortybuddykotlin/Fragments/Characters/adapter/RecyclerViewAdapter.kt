@@ -31,51 +31,51 @@ class RecyclerViewAdapter(private val mContext: Fragment, private var listCharac
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
-        holder.personnage_fragment_item_name!!.text = listCharacters!![position].name
+        holder.personnage_fragment_item_name.text = listCharacters!![position].name
 
         val status = listCharacters!![position].status
         when {
             status?.toLowerCase() == "dead" -> {
-                holder.personnage_fragment_item_status!!.setTextColor(
+                holder.personnage_fragment_item_status.setTextColor(
                     ContextCompat.getColor(
                         mContext.context!!,
                         R.color.colorDanger
                     )
                 )
-                holder.personnage_fragment_item_status!!.text = mContext.resources.getString(R.string.status_dead)
+                holder.personnage_fragment_item_status.text = mContext.resources.getString(R.string.status_dead)
             }
             status?.toLowerCase() == "alive" -> {
-                holder.personnage_fragment_item_status!!.setTextColor(
+                holder.personnage_fragment_item_status.setTextColor(
                     ContextCompat.getColor(
                         mContext.context!!,
                         R.color.colorValidate
                     )
                 )
-                holder.personnage_fragment_item_status!!.text = mContext.resources.getString(R.string.status_alive)
+                holder.personnage_fragment_item_status.text = mContext.resources.getString(R.string.status_alive)
             }
             else -> {
-                holder.personnage_fragment_item_status!!.setTextColor(
+                holder.personnage_fragment_item_status.setTextColor(
                     ContextCompat.getColor(
                         mContext.context!!,
                         R.color.followersBg
                     )
                 )
-                holder.personnage_fragment_item_status!!.text = mContext.resources.getString(R.string.status_unknown)
+                holder.personnage_fragment_item_status.text = mContext.resources.getString(R.string.status_unknown)
             }
         }
 
-        holder.personnage_fragment_item_species!!.text = listCharacters!![position].species
+        holder.personnage_fragment_item_species.text = listCharacters!![position].species
 
         val gender = listCharacters!![position].gender
 
         when {
-            gender?.toLowerCase() == "female" -> holder.personnage_fragment_item_gender!!.text = mContext.resources.getString(R.string.gender_female)
-            gender?.toLowerCase() == "male" -> holder.personnage_fragment_item_gender!!.text = mContext.resources.getString(R.string.gender_male)
-            else -> holder.personnage_fragment_item_gender!!.text = gender
+            gender?.toLowerCase() == "female" -> holder.personnage_fragment_item_gender.text = mContext.resources.getString(R.string.gender_female)
+            gender?.toLowerCase() == "male" -> holder.personnage_fragment_item_gender.text = mContext.resources.getString(R.string.gender_male)
+            else -> holder.personnage_fragment_item_gender.text = gender
         }
 
-        holder.personnage_fragment_item_origin!!.text = listCharacters!![position].origin!!.name
-        holder.personnage_fragment_item_last_location!!.text = listCharacters!![position].location!!.name
+        holder.personnage_fragment_item_origin.text = listCharacters!![position].origin!!.name
+        holder.personnage_fragment_item_last_location.text = listCharacters!![position].location!!.name
 
         val imageView = holder.personnage_fragment_item__img
 
@@ -84,7 +84,7 @@ class RecyclerViewAdapter(private val mContext: Fragment, private var listCharac
             .networkPolicy(NetworkPolicy.OFFLINE)
             .placeholder(R.drawable.ic_launcher_background)
             .error(R.drawable.no_data)
-            .into(imageView!!, object : Callback {
+            .into(imageView, object : Callback {
                 override fun onSuccess() {}
                 override fun onError() {
                     Picasso.with(mContext.activity)
@@ -98,7 +98,7 @@ class RecyclerViewAdapter(private val mContext: Fragment, private var listCharac
                 }
             })
 
-        holder.cardView!!.setOnClickListener {
+        holder.cardView.setOnClickListener {
             val intent = Intent(mContext.activity, Character_Details_Activity::class.java)
             intent.putExtra("personnage_details", listCharacters!![position])
 
@@ -129,21 +129,21 @@ class RecyclerViewAdapter(private val mContext: Fragment, private var listCharac
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         @BindView(R.id.personnage_fragment_item__img)
-        internal var personnage_fragment_item__img: ImageView? = null
+        lateinit var personnage_fragment_item__img: ImageView
         @BindView(R.id.personnage_fragment_item_name)
-        internal var personnage_fragment_item_name: TextView? = null
+        lateinit var personnage_fragment_item_name: TextView
         @BindView(R.id.personnage_fragment_item_status)
-        internal var personnage_fragment_item_status: TextView? = null
+        lateinit var personnage_fragment_item_status: TextView
         @BindView(R.id.personnage_fragment_item_species)
-        internal var personnage_fragment_item_species: TextView? = null
+        lateinit var personnage_fragment_item_species: TextView
         @BindView(R.id.personnage_fragment_item_gender)
-        internal var personnage_fragment_item_gender: TextView? = null
+        lateinit var personnage_fragment_item_gender: TextView
         @BindView(R.id.personnage_fragment_item_origin)
-        internal var personnage_fragment_item_origin: TextView? = null
+        lateinit var personnage_fragment_item_origin: TextView
         @BindView(R.id.personnage_fragment_item_last_location)
-        internal var personnage_fragment_item_last_location: TextView? = null
+        lateinit var personnage_fragment_item_last_location: TextView
         @BindView(R.id.cardview_fragment_item_id)
-        internal var cardView: CardView? = null
+        lateinit var cardView: CardView
 
 
         init {

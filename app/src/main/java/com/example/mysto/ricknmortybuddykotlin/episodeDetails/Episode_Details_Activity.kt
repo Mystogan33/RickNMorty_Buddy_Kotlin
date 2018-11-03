@@ -26,27 +26,27 @@ import retrofit2.Response
 class Episode_Details_Activity : AppCompatActivity() {
 
     @BindView(R.id.episode_details_img_fullsize)
-    internal var episode_details_img_fullsize: ImageView? = null
+    lateinit var episode_details_img_fullsize: ImageView
     @BindView(R.id.episode_details_img)
-    internal var episode_details_img: ImageView? = null
+    lateinit var episode_details_img: ImageView
 
     @BindView(R.id.webView)
-    internal var webView: PlayerWebView? = null
+    lateinit var webView: PlayerWebView
 
     @BindView(R.id.episode_details_season)
-    internal var episode_details_season: TextView? = null
+    lateinit var episode_details_season: TextView
     @BindView(R.id.episode_details_name)
-    internal var episode_details_name: TextView? = null
+    lateinit var episode_details_name: TextView
     @BindView(R.id.episode_details_air_date)
-    internal var episode_details_air_date: TextView? = null
+    lateinit var episode_details_air_date: TextView
     @BindView(R.id.episode_details_description)
-    internal var episode_details_description: TextView? = null
+    lateinit var episode_details_description: TextView
 
     @BindView(R.id.episode_details_toolbar)
-    internal var toolbar: Toolbar? = null
+    lateinit var toolbar: Toolbar
 
     @BindView(R.id.episode_details_recyclerview)
-    internal var recyclerView: RecyclerView? = null
+    lateinit var recyclerView: RecyclerView
 
     internal var episode_details: Episode? = null
 
@@ -78,10 +78,10 @@ class Episode_Details_Activity : AppCompatActivity() {
     }
 
     private fun setValuesToViews() {
-        episode_details_season!!.text = episode_details?.episode
-        episode_details_name!!.text = episode_details?.name
-        episode_details_air_date!!.text = episode_details?.airDate
-        episode_details_description!!.text = episode_details?.description
+        episode_details_season.text = episode_details?.episode
+        episode_details_name.text = episode_details?.name
+        episode_details_air_date.text = episode_details?.airDate
+        episode_details_description.text = episode_details?.description
     }
 
     private fun loadCharacters() {
@@ -146,10 +146,10 @@ class Episode_Details_Activity : AppCompatActivity() {
 
         listCharacters = ArrayList()
         adapter = RecyclerViewEpisodesCharactersAdapter(listCharacters, this)
-        recyclerView!!.layoutManager = GridLayoutManager(this, 5)
-        recyclerView!!.adapter = adapter as RecyclerView.Adapter<*>
+        recyclerView.layoutManager = GridLayoutManager(this, 5)
+        recyclerView.adapter = adapter as RecyclerView.Adapter<*>
 
-        webView!!.load("x62qgh0")
+        webView.load("x62qgh0")
 
         if (extras != null) {
 
@@ -174,12 +174,12 @@ class Episode_Details_Activity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        webView!!.onPause()
+        webView.onPause()
     }
 
     override fun onResume() {
         super.onResume()
-        webView!!.onResume()
+        webView.onResume()
     }
 
     override fun onSupportNavigateUp(): Boolean {
