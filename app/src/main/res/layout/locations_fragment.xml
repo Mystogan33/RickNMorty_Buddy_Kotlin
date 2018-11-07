@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/locationsFragmentCoordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:id="@+id/cordinatorLayoutActivityA"
     android:background="@android:color/transparent"
     android:focusable="true"
     android:focusableInTouchMode="true">
     <requestFocus />
 
     <com.google.android.material.appbar.AppBarLayout
-        android:layout_below="@id/swipe_container"
+        android:layout_below="@id/locationsFragmentSwipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
@@ -20,18 +20,18 @@
         android:elevation="0dp">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/locationsFragmentToolbar"
             android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/locationsFragmentCardView"
             app:layout_scrollFlags="scroll|enterAlways"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardUseCompatPadding="true"
-            android:id="@+id/cardS"
             app:cardBackgroundColor="@color/colorPrimaryDark"
             app:cardElevation="0dp"
             app:cardCornerRadius="20dp"
@@ -40,28 +40,28 @@
             app:cardPreventCornerOverlap="false">
 
             <androidx.appcompat.widget.SearchView
-                android:id="@+id/searchViewQuery"
+                android:id="@+id/locationsFragmentSearchView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
+                android:layout_marginEnd="20dp"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
                 app:closeIcon="@android:drawable/ic_menu_close_clear_cancel"
                 app:iconifiedByDefault="false"
                 app:queryHint="@string/locations_fragment_query_hint" />
 
             <ImageButton
-                android:layout_marginRight="5dp"
+                android:id="@+id/locationsFragmentSearchViewIcon"
+                android:layout_marginEnd="5dp"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_gravity="end|center_vertical"
-                android:id="@+id/imageViewSearchMenu"
                 style="?android:attr/actionOverflowButtonStyle"/>
 
         </androidx.cardview.widget.CardView>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_container"
+        android:id="@+id/locationsFragmentSwipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -69,12 +69,12 @@
         android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/locationsFragmentRecyclerView"
             android:focusableInTouchMode="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clipToPadding="false"
-            android:paddingBottom="5dp"
-            android:id="@+id/locationsRecyclerView">
+            android:paddingBottom="5dp">
         </androidx.recyclerview.widget.RecyclerView>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

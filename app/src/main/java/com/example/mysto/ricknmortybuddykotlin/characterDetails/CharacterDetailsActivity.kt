@@ -6,19 +6,11 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 
 import android.os.Bundle
-import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.appcompat.widget.Toolbar
-import butterknife.BindView
-import butterknife.ButterKnife
 
 import android.widget.FrameLayout
 import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
-import android.widget.TextView
 
 import com.example.mysto.ricknmortybuddykotlin.Fragments.Characters.models.Character
 import com.example.mysto.ricknmortybuddykotlin.Fragments.Episodes.models.Episode
@@ -27,61 +19,24 @@ import com.example.mysto.ricknmortybuddykotlin.Fragments.Locations.models.Locati
 import com.example.mysto.ricknmortybuddykotlin.Fragments.Locations.models.RawLocationsServerResponse
 import com.example.mysto.ricknmortybuddykotlin.R
 import com.example.mysto.ricknmortybuddykotlin.adapters.RecyclerViewEpisodesAdapter
-import com.example.mysto.ricknmortybuddykotlin.locationDetails.Location_Details_Activity
+import com.example.mysto.ricknmortybuddykotlin.locationDetails.LocationDetailsActivity
 import com.google.gson.Gson
 import com.squareup.picasso.Callback
 import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.character_details_activity.*
+import kotlinx.android.synthetic.main.episode_details_activity.*
 
-import java.util.ArrayList
 
-
-class Character_Details_Activity : AppCompatActivity() {
-
-    @BindView(R.id.personnage_details__name)
-    lateinit var personnage_details_name: TextView
-    @BindView(R.id.personnage_details_status)
-    lateinit var personnage_details_status: TextView
-    @BindView(R.id.personnage_details_species)
-    lateinit var personnage_details_species: TextView
-    @BindView(R.id.personnage_details_gender)
-    lateinit var personnage_details_gender: TextView
-    @BindView(R.id.personnage_details_origin)
-    lateinit var personnage_details_origin: TextView
-    @BindView(R.id.personnage_details_last_location)
-    lateinit var personnage_details_last_location: TextView
-    @BindView(R.id.personnage_details_img)
-    lateinit var personnage_details_img: ImageView
-    @BindView(R.id.origin_img)
-    lateinit var origin_img: ImageView
-    @BindView(R.id.last_location_img)
-    lateinit var last_location_img: ImageView
-    @BindView(R.id.relayOrigin)
-    lateinit var personnage_details_relay_origin: RelativeLayout
-    @BindView(R.id.relayLastLocation)
-    lateinit var personnage_details_relay_last_location: RelativeLayout
-    @BindView(R.id.episodes_recyclerview_relay)
-    lateinit var episodes_recyclerview_relay: RelativeLayout
-    @BindView(R.id.relayStatus)
-    lateinit var personnage_details_relay_status: LinearLayout
-    @BindView(R.id.episodes_recyclerview)
-    lateinit var recyclerView: RecyclerView
-    @BindView(R.id.cardview_episodes_of_character)
-    lateinit var cardView: CardView
-    @BindView(R.id.toolbar)
-    lateinit var toolbar: Toolbar
+class CharacterDetailsActivity : AppCompatActivity() {
 
     internal var adapter: RecyclerViewEpisodesAdapter? = null
-
-    internal var gson: Gson
+    internal var gson: Gson = Gson()
     internal var sharedPreferences: SharedPreferences? = null
-
-    internal var personnage_details: Character? = null
-
+    internal var characterDetails: Character? = null
     internal var listURLEpisodes: MutableList<String>? = arrayListOf()
     internal var listEpisodes: MutableList<Episode>? = arrayListOf()
     internal var listEpisodesDetails: MutableList<Episode>? = arrayListOf()
-
     internal var lastLocationURL: String? = ""
     internal var lastLocationData: Location? = null
     internal var idLastLocation: Int? = null
@@ -89,57 +44,54 @@ class Character_Details_Activity : AppCompatActivity() {
     internal var listLocations: MutableList<Location> = arrayListOf()
     internal var originData: Location? = null
     internal var idOrigin: Int? = null
-
     internal var extras: Bundle? = null
 
-    init {
-        gson = Gson()
-    }
+    private fun setValuesToViews() {
+        character_name.text = characterDetails!!.name
 
-    fun setValuesToViews() {
-        personnage_details_name.text = personnage_details!!.name
-
-        val status = personnage_details!!.status
+        val status = characterDetails!!.status
 
         when {
             status?.toLowerCase() == "dead" -> {
-                personnage_details_status.text = resources.getString(R.string.status_dead)
-                personnage_details_relay_status.setBackgroundColor(ContextCompat.getColor(this, R.color.colorDanger))
+                character_status.text = resources.getString(R.string.status_dead)
+                character_relay_status.setBackgroundColor(ContextCompat.getColor(this, R.color.colorDanger))
             }
-            status?.toLowerCase() == "alive" -> personnage_details_status.text = resources.getString(R.string.status_alive)
+            status?.toLowerCase() == "alive" -> character_status.text = resources.getString(R.string.status_alive)
             else -> {
-                personnage_details_status.text = resources.getString(R.string.status_unknown)
-                personnage_details_relay_status.setBackgroundColor(ContextCompat.getColor(this, R.color.followersBg))
+                character_status.text = resources.getString(R.string.status_unknown)
+                character_relay_status.setBackgroundColor(ContextCompat.getColor(this, R.color.followersBg))
             }
         }
 
-        personnage_details_species.text = personnage_details!!.species
-        personnage_details_gender.text = personnage_details!!.gender
+        character_species.text = characterDetails!!.species
 
-        val gender = personnage_details!!.gender
+        val gender = characterDetails!!.gender
 
         when {
-            gender?.toLowerCase() == "male" -> personnage_details_gender.text = resources.getString(R.string.gender_male)
-            gender?.toLowerCase() == "female" -> personnage_details_gender.text = resources.getString(R.string.gender_female)
-            else -> personnage_details_gender.text = resources.getString(R.string.gender_unknown)
+            gender?.toLowerCase() == "male" -> character_gender.text = resources.getString(R.string.gender_male)
+            gender?.toLowerCase() == "female" -> character_gender.text = resources.getString(R.string.gender_female)
+            else -> character_gender.text = resources.getString(R.string.gender_unknown)
         }
 
-        personnage_details_last_location.text = personnage_details!!.location!!.name
-        personnage_details_origin.text = personnage_details!!.origin!!.name
+        character_last_location.text = characterDetails!!.location!!.name
+        character_origin.text = characterDetails!!.origin!!.name
+
+        episodes_recyclerview.layoutManager = GridLayoutManager(this, 5)
+        episodes_recyclerview.adapter = adapter
     }
 
-    fun initActionBar() {
+    private fun initActionBar() {
 
-        setSupportActionBar(toolbar)
+        setSupportActionBar(character_toolbar)
         val actionbar = supportActionBar
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.setDisplayShowHomeEnabled(true)
-        supportActionBar!!.setDisplayShowTitleEnabled(false)
-        actionbar!!.setHomeAsUpIndicator(R.drawable.ic_keyboard_arrow_left_accent)
+        actionbar?.setDisplayHomeAsUpEnabled(true)
+        actionbar?.setDisplayShowHomeEnabled(true)
+        actionbar?.setDisplayShowTitleEnabled(false)
+        actionbar?.setHomeAsUpIndicator(R.drawable.ic_keyboard_arrow_left_accent)
 
     }
 
-    fun loadImage(imgUrl: String?, imgView: ImageView?) {
+    private fun loadImage(imgUrl: String?, imgView: ImageView?) {
 
         Picasso.with(this)
             .load(imgUrl)
@@ -159,7 +111,6 @@ class Character_Details_Activity : AppCompatActivity() {
                         })
                 }
             })
-
     }
 
     private fun searchForLocations() {
@@ -168,12 +119,12 @@ class Character_Details_Activity : AppCompatActivity() {
 
             if (location.id!! == idLastLocation) {
                 lastLocationData = location
-                personnage_details_last_location.text = lastLocationData?.name
+                character_last_location.text = lastLocationData?.name
 
                 this.loadImage(lastLocationData!!.image, last_location_img)
 
-                personnage_details_relay_last_location.setOnClickListener {
-                    val intent = Intent(applicationContext, Location_Details_Activity::class.java)
+                character_relayLastLocation.setOnClickListener {
+                    val intent = Intent(this, LocationDetailsActivity::class.java)
                     intent.putExtra("location_details", lastLocationData)
                     startActivity(intent)
                 }
@@ -182,12 +133,12 @@ class Character_Details_Activity : AppCompatActivity() {
 
             if (location.id!! == idOrigin) {
                 originData = location
-                personnage_details_origin.text = originData!!.name
+                character_origin.text = originData!!.name
 
                 this.loadImage(originData!!.image, origin_img)
 
-                personnage_details_relay_origin.setOnClickListener {
-                    val intent = Intent(applicationContext, Location_Details_Activity::class.java)
+                character_relayOrigin.setOnClickListener {
+                    val intent = Intent(applicationContext, LocationDetailsActivity::class.java)
                     intent.putExtra("location_details", originData)
                     startActivity(intent)
                 }
@@ -218,26 +169,22 @@ class Character_Details_Activity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_character_details)
+        setContentView(R.layout.character_details_activity)
 
         extras = intent.extras
-
-        ButterKnife.bind(this)
         this.initActionBar()
 
         listEpisodesDetails = ArrayList()
         adapter = RecyclerViewEpisodesAdapter(listEpisodesDetails!!, this)
-        recyclerView.layoutManager = GridLayoutManager(this, 5)
-        recyclerView.adapter = adapter as RecyclerView.Adapter<*>
 
         if (extras != null) {
-            personnage_details = extras!!.getSerializable("personnage_details") as Character?
+            characterDetails = extras!!.getSerializable("personnage_details") as Character?
 
             this.setValuesToViews()
 
-            listURLEpisodes = personnage_details!!.episode as MutableList<String>?
-            lastLocationURL = personnage_details!!.location!!.url
-            originURL = personnage_details!!.origin!!.url
+            listURLEpisodes = characterDetails!!.episode as MutableList<String>?
+            lastLocationURL = characterDetails!!.location!!.url
+            originURL = characterDetails!!.origin!!.url
 
             sharedPreferences = applicationContext.getSharedPreferences("APP_DATA", Context.MODE_PRIVATE)
 
@@ -262,20 +209,19 @@ class Character_Details_Activity : AppCompatActivity() {
 
             if (listURLEpisodes != null) {
 
-                val params = episodes_recyclerview_relay.layoutParams as FrameLayout.LayoutParams
+                val params = relay_recyclerview.layoutParams
 
                 if (listURLEpisodes!!.size <= 10) {
                     params.height = FrameLayout.LayoutParams.WRAP_CONTENT
                     params.width = FrameLayout.LayoutParams.MATCH_PARENT
                 }
 
-                episodes_recyclerview_relay.layoutParams = params
-
+                episodes_recyclerview.layoutParams = params
                 this.searchForEpisodes()
 
             }
 
-            this.loadImage(personnage_details!!.image, personnage_details_img)
+            this.loadImage(characterDetails!!.image, character_img)
 
         }
     }

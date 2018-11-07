@@ -5,47 +5,24 @@ import android.graphics.Typeface
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
-import androidx.viewpager.widget.ViewPager
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.OnClick
-import com.example.mysto.ricknmortybuddykotlin.Fragments.Characters.Characters_Fragment
-import com.example.mysto.ricknmortybuddykotlin.Fragments.Episodes.Episodes_Fragment
-import com.example.mysto.ricknmortybuddykotlin.Fragments.Locations.Locations_Fragment
+import com.example.mysto.ricknmortybuddykotlin.Fragments.Characters.CharactersFragment
+import com.example.mysto.ricknmortybuddykotlin.Fragments.Episodes.EpisodesFragment
+import com.example.mysto.ricknmortybuddykotlin.Fragments.Locations.LocationsFragment
 import com.example.mysto.ricknmortybuddykotlin.R
 import com.example.mysto.ricknmortybuddykotlin.animations.DepthPageTransformer
 import com.example.mysto.ricknmortybuddykotlin.mainActivity.adapter.ViewPagerAdapter
 import com.example.mysto.ricknmortybuddykotlin.notifications.NotificationHelperWelcomeBack
 import com.getkeepsafe.taptargetview.TapTarget
 import com.getkeepsafe.taptargetview.TapTargetSequence
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.navigation.NavigationView
-import com.google.android.material.tabs.TabLayout
+import kotlinx.android.synthetic.main.main_activity.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
-
-    @BindView(R.id.tablayout_id)
-    lateinit var mTabLayout: TabLayout
-    @BindView(R.id.viewpager_id)
-    lateinit var mViewPager: ViewPager
-    @BindView(R.id.drawer_layout)
-    lateinit var mDrawerLayout: DrawerLayout
-    @BindView(R.id.nav_view)
-    lateinit var navigationView: NavigationView
-    @BindView(R.id.menu_button)
-    lateinit var home_button: ImageButton
-    @BindView(R.id.more_button)
-    lateinit var more_button: ImageButton
-    @BindView(R.id.refresh_button)
-    lateinit var refresh_button: FloatingActionButton
 
     var mNotifier: NotificationHelperWelcomeBack? = null
     var mViewPagerAdapter: ViewPagerAdapter? = null
@@ -53,55 +30,63 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_main)
-        ButterKnife.bind(this)
+        setContentView(R.layout.main_activity)
 
-        navigationView.setNavigationItemSelectedListener{
+        mainActivityNavigationView.setNavigationItemSelectedListener{
             it.isChecked = true
-            mDrawerLayout.closeDrawers()
+            mainActivityDrawerLayout.closeDrawers()
             true
         }
 
         this.initFragments()
         this.sendNotifications()
+        this.setListeners()
         //this.addTransitionAnimations()
-
     }
 
-    @OnClick(R.id.menu_button)
+    private fun setListeners() {
+        mainActivityMenuButton.setOnClickListener {
+            openDrawer()
+        }
+        mainActivityMoreButton.setOnClickListener {
+            openOptions()
+        }
+        mainActivityRefreshButton.setOnClickListener {
+            refreshAllFragments()
+        }
+    }
+
     fun openDrawer() {
-        mDrawerLayout.openDrawer(GravityCompat.START)
+        mainActivityDrawerLayout.openDrawer(GravityCompat.START)
     }
 
-    @OnClick(R.id.more_button)
     fun openOptions() {
         initSequence()
     }
 
-    @OnClick(R.id.refresh_button)
     fun refreshAllFragments() {
         mViewPagerAdapter!!.refreshAllFragments()
     }
 
     fun addTransitionAnimations() {
         if (android.os.Build.VERSION.SDK_INT <= Build.VERSION_CODES.O_MR1) {
-            mViewPager.setPageTransformer(true, DepthPageTransformer())
+            mainActivityViewPager.setPageTransformer(true, DepthPageTransformer())
             //mViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
         }
     }
 
-    fun initFragments() {
+    private fun initFragments() {
         mViewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
-        mViewPagerAdapter!!.addFragment(Characters_Fragment() as Fragment, resources.getString(R.string.tab_title_characters))
-        mViewPagerAdapter!!.addFragment(Episodes_Fragment() as Fragment, resources.getString(R.string.tab_title_episodes))
-        mViewPagerAdapter!!.addFragment(Locations_Fragment() as Fragment, resources.getString(R.string.tab_title_locations))
+        mViewPagerAdapter!!.addFragment(CharactersFragment() as Fragment, resources.getString(R.string.tab_title_characters))
+        mViewPagerAdapter!!.addFragment(EpisodesFragment() as Fragment, resources.getString(R.string.tab_title_episodes))
+        mViewPagerAdapter!!.addFragment(LocationsFragment() as Fragment, resources.getString(R.string.tab_title_locations))
 
-        mViewPager.adapter = mViewPagerAdapter
-        mViewPager.offscreenPageLimit = 2
-        mTabLayout.setupWithViewPager(mViewPager)
+        mainActivityViewPager.adapter = mViewPagerAdapter
+        mainActivityViewPager.offscreenPageLimit = 2
+        mainActivityTabLayout.setupWithViewPager(mainActivityViewPager)
     }
 
-    fun sendNotifications() {
+    private fun sendNotifications() {
         val cal = Calendar.getInstance()
         val date = SimpleDateFormat("yyyy-MM-dd", Locale.FRANCE).format(cal.time)
         val sharedPreferences = this.getSharedPreferences("APP_DATA", Context.MODE_PRIVATE)
@@ -126,10 +111,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun initSequence() {
+    private fun initSequence() {
         val sequence = TapTargetSequence(this)
             .targets(
-                TapTarget.forView(home_button, "Menu", "Vous pouvez ouvrir le menu ici")
+                TapTarget.forView(mainActivityMenuButton, "Menu", "Vous pouvez ouvrir le menu ici")
                     .outerCircleColor(R.color.tabindicatorcolor)      // Specify a color for the outer circle
                     .outerCircleAlpha(0.96f)            // Specify the alpha amount for the outer circle
                     .targetCircleColor(R.color.colorAccent)   // Specify a color for the target circle
@@ -145,7 +130,7 @@ class MainActivity : AppCompatActivity() {
                     .transparentTarget(false)           // Specify whether the target is transparent (displays the content underneath)
                     .targetRadius(60)
                     .id(1),
-                TapTarget.forView(more_button, "Plus d'options", "Plus d'options ici ! :)")
+                TapTarget.forView(mainActivityMoreButton, "Plus d'options", "Plus d'options ici ! :)")
                     .outerCircleColor(R.color.tabindicatorcolor)      // Specify a color for the outer circle
                     .outerCircleAlpha(0.96f)            // Specify the alpha amount for the outer circle
                     .targetCircleColor(R.color.colorAccent)   // Specify a color for the target circle
@@ -162,7 +147,7 @@ class MainActivity : AppCompatActivity() {
                     .targetRadius(60)
                     .id(2),
                 TapTarget.forView(
-                    refresh_button,
+                    mainActivityRefreshButton,
                     "Rafraichir toutes les catégories",
                     "(A noter: Toutes les catégories sont automatiquement rafraichies chaque jour et peuvent être rafraichis avec ce bouton mais vous pouvez les rafraichir manuellement et séparément en swipant vers le bas en haut de chacune des catégories)"
                 )
@@ -188,7 +173,7 @@ class MainActivity : AppCompatActivity() {
                         1 -> {
                             openDrawer()
                             val handler = Handler()
-                            handler.postDelayed({ mDrawerLayout.closeDrawers() }, 500)
+                            handler.postDelayed({ mainActivityDrawerLayout.closeDrawers() }, 500)
                         }
                         3 -> refreshAllFragments()
                     }

@@ -4,9 +4,9 @@ import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.example.mysto.ricknmortybuddykotlin.Fragments.Characters.Characters_Fragment
-import com.example.mysto.ricknmortybuddykotlin.Fragments.Episodes.Episodes_Fragment
-import com.example.mysto.ricknmortybuddykotlin.Fragments.Locations.Locations_Fragment
+import com.example.mysto.ricknmortybuddykotlin.Fragments.Characters.CharactersFragment
+import com.example.mysto.ricknmortybuddykotlin.Fragments.Episodes.EpisodesFragment
+import com.example.mysto.ricknmortybuddykotlin.Fragments.Locations.LocationsFragment
 
 
 class ViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
@@ -35,9 +35,9 @@ class ViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
     fun refreshAllFragments() {
         for (fg in fragmentList) {
             when (fg) {
-                is Episodes_Fragment -> fg.loadRecyclerViewData()
-                is Locations_Fragment -> fg.loadRecyclerViewData()
-                is Characters_Fragment -> fg.loadRecyclerViewData()
+                is EpisodesFragment -> fg.loadRecyclerViewData()
+                is LocationsFragment -> fg.loadRecyclerViewData()
+                is CharactersFragment -> fg.loadRecyclerViewData()
             }
         }
     }

@@ -11,7 +11,7 @@
     <requestFocus />
 
     <com.google.android.material.appbar.AppBarLayout
-        android:layout_below="@id/swipe_container"
+        android:layout_below="@id/charactersFragmentSwipe_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
@@ -20,7 +20,7 @@
         android:elevation="0dp">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/charactersFragmentToolbar"
             android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
@@ -40,7 +40,7 @@
             app:cardPreventCornerOverlap="false">
 
             <androidx.appcompat.widget.SearchView
-                android:id="@+id/searchViewQuery"
+                android:id="@+id/charactersFragmentSearchViewQuery"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
@@ -61,7 +61,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_container"
+        android:id="@+id/charactersFragmentSwipe_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -75,7 +75,7 @@
             android:orientation="vertical">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/personnagesRecyclerView"
+                android:id="@+id/charactersFragmentRecyclerView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

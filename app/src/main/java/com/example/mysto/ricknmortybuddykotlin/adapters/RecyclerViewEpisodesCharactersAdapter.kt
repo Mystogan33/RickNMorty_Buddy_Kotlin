@@ -5,18 +5,16 @@ import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.RecyclerView
-import butterknife.BindView
-import butterknife.ButterKnife
 import com.example.mysto.ricknmortybuddykotlin.Fragments.Characters.models.Character
 import com.example.mysto.ricknmortybuddykotlin.R
-import com.example.mysto.ricknmortybuddykotlin.characterDetails.Character_Details_Activity
+import com.example.mysto.ricknmortybuddykotlin.characterDetails.CharacterDetailsActivity
 import com.squareup.picasso.Callback
 import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.recycler_view_item_character.view.*
 
 
 class RecyclerViewEpisodesCharactersAdapter(
@@ -26,12 +24,12 @@ class RecyclerViewEpisodesCharactersAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val mInflater = LayoutInflater.from(mContext)
-        return MyViewHolder(mInflater.inflate(R.layout.activity_episode_details_character, parent, false))
+        return MyViewHolder(mInflater.inflate(R.layout.recycler_view_item_character, parent, false))
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
-        val imageView = holder.img_character
+        val imageView = holder.imgCharacter
 
         Picasso.with(mContext.applicationContext)
             .load(listCharacters[position].image)
@@ -53,7 +51,7 @@ class RecyclerViewEpisodesCharactersAdapter(
             })
 
         imageView.setOnClickListener {
-            val intent = Intent(mContext, Character_Details_Activity::class.java)
+            val intent = Intent(mContext, CharacterDetailsActivity::class.java)
             intent.putExtra("personnage_details", listCharacters[position])
 
             // Check if we're running on Android 5.0 or higher
@@ -82,12 +80,7 @@ class RecyclerViewEpisodesCharactersAdapter(
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        @BindView(R.id.img)
-        lateinit var img_character: ImageView
-
-        init {
-            ButterKnife.bind(this, itemView)
-        }
+        val imgCharacter = itemView.rv_details_character_img
     }
 
 }

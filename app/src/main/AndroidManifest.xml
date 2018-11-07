@@ -20,15 +20,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".episodeDetails.Episode_Details_Activity"
+            android:name=".episodeDetails.EpisodeDetailsActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:configChanges="orientation|screenSize" />
         <activity
-            android:name=".locationDetails.Location_Details_Activity"
+            android:name=".locationDetails.LocationDetailsActivity"
             android:configChanges="orientation|keyboardHidden" />
 
         <activity
-            android:name=".characterDetails.Character_Details_Activity"
+            android:name=".characterDetails.CharacterDetailsActivity"
             android:configChanges="orientation|keyboardHidden" />
 
     </application>

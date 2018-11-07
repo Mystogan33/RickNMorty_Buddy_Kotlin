@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/grad"
 
-    tools:context=".location_details.Location_Details_Activity">
+    tools:context=".locationDetails.Location_Details_Activity">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/location_details_toolbar"
         android:layout_width="match_parent"

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Episode_Details_Activity"
+    tools:context=".episodeDetails.EpisodeDetailsActivity"
     android:background="@drawable/grad2">
 
     <androidx.appcompat.widget.Toolbar

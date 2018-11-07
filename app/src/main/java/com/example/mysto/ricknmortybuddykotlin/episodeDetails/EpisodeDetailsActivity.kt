@@ -2,14 +2,8 @@ package com.example.mysto.ricknmortybuddykotlin.episodeDetails
 
 import android.os.Bundle
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import butterknife.BindView
-import butterknife.ButterKnife
-import com.dailymotion.android.player.sdk.PlayerWebView
 import com.example.mysto.ricknmortybuddykotlin.Fragments.Characters.models.Character
 import com.example.mysto.ricknmortybuddykotlin.Fragments.Episodes.models.Episode
 import com.example.mysto.ricknmortybuddykotlin.R
@@ -20,68 +14,46 @@ import com.google.gson.Gson
 import com.squareup.picasso.Callback
 import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.episode_details_activity.*
 import retrofit2.Call
 import retrofit2.Response
 
-class Episode_Details_Activity : AppCompatActivity() {
+class EpisodeDetailsActivity : AppCompatActivity() {
 
-    @BindView(R.id.episode_details_img_fullsize)
-    lateinit var episode_details_img_fullsize: ImageView
-    @BindView(R.id.episode_details_img)
-    lateinit var episode_details_img: ImageView
+    private var episodeDetails: Episode? = null
 
-    @BindView(R.id.webView)
-    lateinit var webView: PlayerWebView
+    private var adapter: RecyclerViewEpisodesCharactersAdapter? = null
+    private var listURLCharacters: List<String> = ArrayList()
+    private var listCharacters: MutableList<Character> = ArrayList()
 
-    @BindView(R.id.episode_details_season)
-    lateinit var episode_details_season: TextView
-    @BindView(R.id.episode_details_name)
-    lateinit var episode_details_name: TextView
-    @BindView(R.id.episode_details_air_date)
-    lateinit var episode_details_air_date: TextView
-    @BindView(R.id.episode_details_description)
-    lateinit var episode_details_description: TextView
+    private var extras: Bundle? = null
 
-    @BindView(R.id.episode_details_toolbar)
-    lateinit var toolbar: Toolbar
+    private var service: GetDataService? = null
+    private var gson: Gson? = null
 
-    @BindView(R.id.episode_details_recyclerview)
-    lateinit var recyclerView: RecyclerView
-
-    internal var episode_details: Episode? = null
-
-    internal var adapter: RecyclerViewEpisodesCharactersAdapter? = null
-    internal var listURLCharacters: List<String> = ArrayList()
-    internal var listCharacters: MutableList<Character> = ArrayList()
-
-    internal var extras: Bundle? = null
-
-    internal var service: GetDataService? = null
-    internal var gson: Gson? = null
-
-    internal var app: AppCompatActivity? = null
+    private var app: AppCompatActivity? = null
 
     init {
         gson = Gson()
         service = RetrofitClientInstance.retrofitInstance?.create(GetDataService::class.java)
     }
 
-    fun initActionBar() {
+    private fun initActionBar() {
 
-        setSupportActionBar(toolbar)
+        setSupportActionBar(episode_details_toolbar)
         val actionbar = supportActionBar
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.setDisplayShowHomeEnabled(true)
-        supportActionBar!!.setDisplayShowTitleEnabled(false)
-        actionbar!!.setHomeAsUpIndicator(R.drawable.ic_keyboard_arrow_left_accent)
+        actionbar?.setDisplayHomeAsUpEnabled(true)
+        actionbar?.setDisplayShowHomeEnabled(true)
+        actionbar?.setDisplayShowTitleEnabled(false)
+        actionbar?.setHomeAsUpIndicator(R.drawable.ic_keyboard_arrow_left_accent)
 
     }
 
     private fun setValuesToViews() {
-        episode_details_season.text = episode_details?.episode
-        episode_details_name.text = episode_details?.name
-        episode_details_air_date.text = episode_details?.airDate
-        episode_details_description.text = episode_details?.description
+        episode_details_season.text = episodeDetails?.episode
+        episode_details_name.text = episodeDetails?.name
+        episode_details_air_date.text = episodeDetails?.airDate
+        episode_details_description.text = episodeDetails?.description
     }
 
     private fun loadCharacters() {
@@ -114,9 +86,7 @@ class Episode_Details_Activity : AppCompatActivity() {
             .centerCrop()
             .error(R.drawable.no_data)
             .into(imgView!!, object : Callback {
-                override fun onSuccess() {
-                    supportStartPostponedEnterTransition()
-                }
+                override fun onSuccess() { supportStartPostponedEnterTransition() }
                 override fun onError() {
                     Picasso.with(app)
                         .load(imgUrl)
@@ -125,9 +95,7 @@ class Episode_Details_Activity : AppCompatActivity() {
                         .centerCrop()
                         .error(R.drawable.no_data)
                         .into(imgView, object : Callback {
-                            override fun onSuccess() {
-                                supportStartPostponedEnterTransition()
-                            }
+                            override fun onSuccess() { supportStartPostponedEnterTransition() }
                             override fun onError() {}
                         })
                 }
@@ -137,37 +105,34 @@ class Episode_Details_Activity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_episode_details)
+        setContentView(R.layout.episode_details_activity)
 
         extras = intent.extras
 
-        ButterKnife.bind(this)
         this.initActionBar()
 
         listCharacters = ArrayList()
         adapter = RecyclerViewEpisodesCharactersAdapter(listCharacters, this)
-        recyclerView.layoutManager = GridLayoutManager(this, 5)
-        recyclerView.adapter = adapter as RecyclerView.Adapter<*>
+        episode_details_recyclerview.layoutManager = GridLayoutManager(this, 5)
+        episode_details_recyclerview.adapter = adapter
 
         webView.load("x62qgh0")
 
         if (extras != null) {
 
-            episode_details = extras!!.getSerializable("episode_details") as Episode
+            episodeDetails = extras!!.getSerializable("episode_details") as Episode
 
             this.setValuesToViews()
 
-            listURLCharacters = episode_details!!.characters!!
+            listURLCharacters = episodeDetails?.characters!!
 
             app = this
 
             this.loadCharacters()
-
             supportPostponeEnterTransition()
 
-            this.loadImage(episode_details!!.image!!, episode_details_img_fullsize)
-            this.loadImage(episode_details!!.image!!, episode_details_img)
-
+            this.loadImage(episodeDetails?.image!!, episode_details_img_fullsize)
+            this.loadImage(episodeDetails?.image!!, episode_details_img)
         }
 
     }

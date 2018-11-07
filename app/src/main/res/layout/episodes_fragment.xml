@@ -4,14 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:id="@+id/cordinatorLayoutActivityA"
+    android:id="@+id/episodesFragmentCoordinatorLayout"
     android:background="@android:color/transparent"
     android:focusable="true"
     android:focusableInTouchMode="true">
     <requestFocus />
 
     <com.google.android.material.appbar.AppBarLayout
-        android:layout_below="@id/swipe_container"
+        android:layout_below="@id/episodesFragmentSwipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
@@ -20,7 +20,7 @@
         android:elevation="0dp">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/episodesFragmentToolbar"
             android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
@@ -28,11 +28,11 @@
             android:elevation="0dp"/>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/episodesFragmentCardView"
             app:layout_scrollFlags="scroll|enterAlways"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardUseCompatPadding="true"
-            android:id="@+id/cardS"
             app:cardBackgroundColor="@color/colorPrimaryDark"
             app:cardElevation="0dp"
             app:cardCornerRadius="20dp"
@@ -41,7 +41,7 @@
             app:cardPreventCornerOverlap="false">
 
             <androidx.appcompat.widget.SearchView
-                android:id="@+id/searchViewQuery"
+                android:id="@+id/episodesFragmentSearchView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
@@ -51,18 +51,18 @@
                 app:queryHint="@string/episodes_fragment_query_hint" />
 
             <ImageButton
+                android:id="@+id/episodesFragmentSearchViewIcon"
                 android:layout_marginEnd="5dp"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_gravity="end|center_vertical"
-                android:id="@+id/imageViewSearchMenu"
                 style="?android:attr/actionOverflowButtonStyle"/>
 
         </androidx.cardview.widget.CardView>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_container"
+        android:id="@+id/episodesFragmentSwipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -76,15 +76,14 @@
             android:orientation="vertical">
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/episodesFragmentRecyclerView"
                 android:focusableInTouchMode="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clipToPadding="false"
-                android:paddingBottom="5dp"
-                android:id="@+id/episodesRecyclerView"/>
+                android:paddingBottom="5dp" />
 
         </LinearLayout>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

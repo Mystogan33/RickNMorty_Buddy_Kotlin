@@ -11,14 +11,13 @@ import androidx.cardview.widget.CardView
 import androidx.core.app.ActivityOptionsCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import butterknife.BindView
-import butterknife.ButterKnife
 import com.example.mysto.ricknmortybuddykotlin.Fragments.Locations.models.Location
 import com.example.mysto.ricknmortybuddykotlin.R
-import com.example.mysto.ricknmortybuddykotlin.locationDetails.Location_Details_Activity
+import com.example.mysto.ricknmortybuddykotlin.locationDetails.LocationDetailsActivity
 import com.squareup.picasso.Callback
 import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.locations_fragment_item.view.*
 
 
 class RecyclerViewAdapter(private val mContext: Fragment, private var listLocations: MutableList<Location>?) :
@@ -31,11 +30,11 @@ class RecyclerViewAdapter(private val mContext: Fragment, private var listLocati
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
-        holder.location_fragment_item_name.text = listLocations!![position].name
-        holder.location_fragment_item_type.text = listLocations!![position].type
-        holder.location_fragment_item_dimension.text = listLocations!![position].dimension
+        holder.name.text = listLocations!![position].name
+        holder.type.text = listLocations!![position].type
+        holder.dimension.text = listLocations!![position].dimension
 
-        val imageView = holder.location_fragment_item__img
+        val imageView = holder.img
 
         Picasso.with(mContext.activity)
             .load(listLocations!![position].image)
@@ -57,13 +56,13 @@ class RecyclerViewAdapter(private val mContext: Fragment, private var listLocati
             })
 
         holder.cardView.setOnClickListener {
-            val intent = Intent(mContext.activity, Location_Details_Activity::class.java)
+            val intent = Intent(mContext.activity, LocationDetailsActivity::class.java)
             intent.putExtra("location_details", listLocations!![position])
 
             // Check if we're running on Android 5.0 or higher
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 val optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(mContext.activity!!,
-                    holder.location_fragment_item__img, "imageLocation")
+                    holder.img, "imageLocation")
                 mContext.startActivity(intent, optionsCompat.toBundle())
             } else {
                 mContext.startActivity(intent)
@@ -82,20 +81,10 @@ class RecyclerViewAdapter(private val mContext: Fragment, private var listLocati
     }
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        @BindView(R.id.location_fragment_item__img)
-        lateinit var location_fragment_item__img: ImageView
-        @BindView(R.id.location_fragment_item_name)
-        lateinit var location_fragment_item_name: TextView
-        @BindView(R.id.location_fragment_item_type)
-        lateinit var location_fragment_item_type: TextView
-        @BindView(R.id.location_fragment_item_dimension)
-        lateinit var location_fragment_item_dimension: TextView
-        @BindView(R.id.cardview_fragment_item_id)
-        lateinit var cardView: CardView
-
-        init {
-            ButterKnife.bind(this, itemView)
-        }
+        var img: ImageView = itemView.location_fragment_item__img
+        var name: TextView = itemView.location_fragment_item_name
+        var type: TextView = itemView.location_fragment_item_type
+        var dimension: TextView = itemView.location_fragment_item_dimension
+        var cardView: CardView = itemView.location_fragment_item_cardview
     }
 }

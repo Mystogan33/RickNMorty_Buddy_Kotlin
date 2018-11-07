@@ -2,13 +2,9 @@ package com.example.mysto.ricknmortybuddykotlin.locationDetails
 
 import android.os.Bundle
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import butterknife.BindView
-import butterknife.ButterKnife
 import com.example.mysto.ricknmortybuddykotlin.Fragments.Characters.models.Character
 import com.example.mysto.ricknmortybuddykotlin.Fragments.Locations.models.Location
 import com.example.mysto.ricknmortybuddykotlin.R
@@ -19,25 +15,13 @@ import com.google.gson.Gson
 import com.squareup.picasso.Callback
 import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.location_details_activity.*
 import retrofit2.Call
 import retrofit2.Response
 
-class Location_Details_Activity : AppCompatActivity() {
+class LocationDetailsActivity : AppCompatActivity() {
 
-    private var location_details: Location? = null
-
-    @BindView(R.id.location_details_img_fullsize)
-    lateinit var location_details_img_fullsize: ImageView
-    @BindView(R.id.location_details_name)
-    lateinit var location_details_name: TextView
-    @BindView(R.id.location_details_dimension)
-    lateinit var location_details_dimension: TextView
-    @BindView(R.id.location_details_type)
-    lateinit var location_details_type: TextView
-    @BindView(R.id.location_details_recyclerview)
-    lateinit var recyclerView: RecyclerView
-    @BindView(R.id.location_details_toolbar)
-    lateinit var toolbar: Toolbar
+    private var locationDetails: Location? = null
 
     internal var gson: Gson? = Gson()
     private var service: GetDataService? = RetrofitClientInstance.retrofitInstance?.create(GetDataService::class.java)
@@ -50,18 +34,18 @@ class Location_Details_Activity : AppCompatActivity() {
     internal var app: AppCompatActivity? = null
 
     private fun initActionBar() {
-        setSupportActionBar(toolbar)
+        setSupportActionBar(location_details_toolbar)
         val actionbar = supportActionBar
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.setDisplayShowHomeEnabled(true)
-        supportActionBar!!.setDisplayShowTitleEnabled(false)
-        actionbar!!.setHomeAsUpIndicator(R.drawable.ic_keyboard_arrow_left_accent)
+        actionbar?.setDisplayHomeAsUpEnabled(true)
+        actionbar?.setDisplayShowHomeEnabled(true)
+        actionbar?.setDisplayShowTitleEnabled(false)
+        actionbar?.setHomeAsUpIndicator(R.drawable.ic_keyboard_arrow_left_accent)
     }
 
     private fun setValuesToViews() {
-        location_details_name.text = location_details?.name
-        location_details_dimension.text = location_details?.dimension
-        location_details_type.text = location_details?.type
+        location_details_name.text = locationDetails?.name
+        location_details_dimension.text = locationDetails?.dimension
+        location_details_type.text = locationDetails?.type
     }
 
     private fun loadCharacters() {
@@ -88,9 +72,7 @@ class Location_Details_Activity : AppCompatActivity() {
             .placeholder(R.drawable.ic_launcher_background)
             .error(R.drawable.no_image)
             .into(imgView, object : Callback {
-                override fun onSuccess() {
-                    supportStartPostponedEnterTransition()
-                }
+                override fun onSuccess() { supportStartPostponedEnterTransition() }
                 override fun onError() {
                     Picasso.with(app)
                         .load(imgUrl)
@@ -99,12 +81,8 @@ class Location_Details_Activity : AppCompatActivity() {
                         .placeholder(R.drawable.ic_launcher_background)
                         .error(R.drawable.no_image)
                         .into(imgView, object : Callback {
-                            override fun onSuccess() {
-                                supportStartPostponedEnterTransition()
-                            }
-                            override fun onError() {
-                                supportStartPostponedEnterTransition()
-                            }
+                            override fun onSuccess() { supportStartPostponedEnterTransition() }
+                            override fun onError() { supportStartPostponedEnterTransition() }
                         })
                 }
             })
@@ -112,25 +90,24 @@ class Location_Details_Activity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_location_details)
+        setContentView(R.layout.location_details_activity)
         extras = intent.extras
-        ButterKnife.bind(this)
         this.initActionBar()
 
         listCharacters = ArrayList()
         adapter = RecyclerViewEpisodesCharactersAdapter(listCharacters!!, this)
-        recyclerView.layoutManager = GridLayoutManager(this, 5)
-        recyclerView.adapter = adapter as RecyclerView.Adapter<*>
+        location_details_recyclerview.layoutManager = GridLayoutManager(this, 5)
+        location_details_recyclerview.adapter = adapter as RecyclerView.Adapter<*>
 
         if (extras != null) {
-            location_details = extras!!.getSerializable("location_details") as Location
+            locationDetails = extras!!.getSerializable("location_details") as Location
             this.setValuesToViews()
-            listURLCharacters = location_details?.residents
+            listURLCharacters = locationDetails?.residents
             listCharacters = ArrayList()
             app = this
             this.loadCharacters()
             supportPostponeEnterTransition()
-            this.loadImage(location_details?.image, location_details_img_fullsize)
+            this.loadImage(locationDetails?.image, location_details_img_fullsize)
         }
     }
 

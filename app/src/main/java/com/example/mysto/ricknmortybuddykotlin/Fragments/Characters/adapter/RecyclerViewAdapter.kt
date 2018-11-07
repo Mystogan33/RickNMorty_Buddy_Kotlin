@@ -12,14 +12,13 @@ import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import butterknife.BindView
-import butterknife.ButterKnife
-import com.example.mysto.ricknmortybuddykotlin.Fragments.Characters.models.Character
 import com.example.mysto.ricknmortybuddykotlin.R
-import com.example.mysto.ricknmortybuddykotlin.characterDetails.Character_Details_Activity
 import com.squareup.picasso.Callback
 import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
+import com.example.mysto.ricknmortybuddykotlin.Fragments.Characters.models.Character
+import com.example.mysto.ricknmortybuddykotlin.characterDetails.CharacterDetailsActivity
+import kotlinx.android.synthetic.main.characters_fragment_item.view.*
 
 class RecyclerViewAdapter(private val mContext: Fragment, private var listCharacters: MutableList<Character>?) :
     RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder>() {
@@ -31,53 +30,53 @@ class RecyclerViewAdapter(private val mContext: Fragment, private var listCharac
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
-        holder.personnage_fragment_item_name.text = listCharacters!![position].name
+        holder.characterFragmentItemName.text = listCharacters!![position].name
 
         val status = listCharacters!![position].status
         when {
             status?.toLowerCase() == "dead" -> {
-                holder.personnage_fragment_item_status.setTextColor(
+                holder.characterFragmentItemStatus.setTextColor(
                     ContextCompat.getColor(
-                        mContext.context!!,
+                        mContext.activity!!,
                         R.color.colorDanger
                     )
                 )
-                holder.personnage_fragment_item_status.text = mContext.resources.getString(R.string.status_dead)
+                holder.characterFragmentItemStatus.text = mContext.resources.getString(R.string.status_dead)
             }
             status?.toLowerCase() == "alive" -> {
-                holder.personnage_fragment_item_status.setTextColor(
+                holder.characterFragmentItemStatus.setTextColor(
                     ContextCompat.getColor(
                         mContext.context!!,
                         R.color.colorValidate
                     )
                 )
-                holder.personnage_fragment_item_status.text = mContext.resources.getString(R.string.status_alive)
+                holder.characterFragmentItemStatus.text = mContext.resources.getString(R.string.status_alive)
             }
             else -> {
-                holder.personnage_fragment_item_status.setTextColor(
+                holder.characterFragmentItemStatus.setTextColor(
                     ContextCompat.getColor(
                         mContext.context!!,
                         R.color.followersBg
                     )
                 )
-                holder.personnage_fragment_item_status.text = mContext.resources.getString(R.string.status_unknown)
+                holder.characterFragmentItemStatus.text = mContext.resources.getString(R.string.status_unknown)
             }
         }
 
-        holder.personnage_fragment_item_species.text = listCharacters!![position].species
+        holder.characterFragmentItemSpecies.text = listCharacters!![position].species
 
         val gender = listCharacters!![position].gender
 
         when {
-            gender?.toLowerCase() == "female" -> holder.personnage_fragment_item_gender.text = mContext.resources.getString(R.string.gender_female)
-            gender?.toLowerCase() == "male" -> holder.personnage_fragment_item_gender.text = mContext.resources.getString(R.string.gender_male)
-            else -> holder.personnage_fragment_item_gender.text = gender
+            gender?.toLowerCase() == "female" -> holder.characterFragmentItemGender.text = mContext.resources.getString(R.string.gender_female)
+            gender?.toLowerCase() == "male" -> holder.characterFragmentItemGender.text = mContext.resources.getString(R.string.gender_male)
+            else -> holder.characterFragmentItemGender.text = gender
         }
 
-        holder.personnage_fragment_item_origin.text = listCharacters!![position].origin!!.name
-        holder.personnage_fragment_item_last_location.text = listCharacters!![position].location!!.name
+        holder.characterFragmentItemOrigin.text = listCharacters!![position].origin!!.name
+        holder.characterFragmentItemLastLocation.text = listCharacters!![position].location!!.name
 
-        val imageView = holder.personnage_fragment_item__img
+        val imageView = holder.characterFragmentItemImg
 
         Picasso.with(mContext.activity)
             .load(listCharacters!![position].image)
@@ -98,8 +97,8 @@ class RecyclerViewAdapter(private val mContext: Fragment, private var listCharac
                 }
             })
 
-        holder.cardView.setOnClickListener {
-            val intent = Intent(mContext.activity, Character_Details_Activity::class.java)
+        holder.characterFragmentItemCardView.setOnClickListener {
+            val intent = Intent(mContext.activity, CharacterDetailsActivity::class.java)
             intent.putExtra("personnage_details", listCharacters!![position])
 
             // Check if we're running on Android 5.0 or higher
@@ -120,34 +119,19 @@ class RecyclerViewAdapter(private val mContext: Fragment, private var listCharac
     }
 
     fun setFilter(list: List<Character>) {
-
         listCharacters = ArrayList()
         listCharacters!!.addAll(list)
         notifyDataSetChanged()
     }
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        @BindView(R.id.personnage_fragment_item__img)
-        lateinit var personnage_fragment_item__img: ImageView
-        @BindView(R.id.personnage_fragment_item_name)
-        lateinit var personnage_fragment_item_name: TextView
-        @BindView(R.id.personnage_fragment_item_status)
-        lateinit var personnage_fragment_item_status: TextView
-        @BindView(R.id.personnage_fragment_item_species)
-        lateinit var personnage_fragment_item_species: TextView
-        @BindView(R.id.personnage_fragment_item_gender)
-        lateinit var personnage_fragment_item_gender: TextView
-        @BindView(R.id.personnage_fragment_item_origin)
-        lateinit var personnage_fragment_item_origin: TextView
-        @BindView(R.id.personnage_fragment_item_last_location)
-        lateinit var personnage_fragment_item_last_location: TextView
-        @BindView(R.id.cardview_fragment_item_id)
-        lateinit var cardView: CardView
-
-
-        init {
-            ButterKnife.bind(this, itemView)
-        }
+        var characterFragmentItemImg: ImageView = itemView.personnage_fragment_item__img
+        var characterFragmentItemName: TextView = itemView.personnage_fragment_item_name
+        var characterFragmentItemStatus: TextView = itemView.personnage_fragment_item_status
+        var characterFragmentItemSpecies: TextView = itemView.personnage_fragment_item_species
+        var characterFragmentItemGender: TextView = itemView.personnage_fragment_item_gender
+        var characterFragmentItemOrigin: TextView = itemView.personnage_fragment_item_origin
+        var characterFragmentItemLastLocation: TextView = itemView.personnage_fragment_item_last_location
+        var characterFragmentItemCardView : CardView = itemView.cardview_fragment_item_id
     }
 }

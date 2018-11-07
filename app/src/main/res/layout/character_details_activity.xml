@@ -6,10 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fuck3"
-    tools:context=".Personnage_Details_Activity">
+    tools:context=".characterDetails.CharacterDetailsActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/character_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@android:color/transparent"
@@ -17,7 +17,7 @@
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
 
     <RelativeLayout
-        android:id="@+id/rellay1"
+        android:id="@+id/relay1"
         android:layout_width="match_parent"
         android:layout_height="255dp">
 
@@ -30,7 +30,7 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/personnage_details_img"
+                android:id="@+id/character_img"
                 android:transitionName="imageCharacter"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
@@ -41,7 +41,7 @@
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/personnage_details__name"
+            android:id="@+id/character_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/imgUser"
@@ -53,10 +53,10 @@
 
 
         <TextView
-            android:id="@+id/personnage_details_species"
+            android:id="@+id/character_species"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/personnage_details__name"
+            android:layout_below="@+id/character_name"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="5dp"
             android:fontFamily="sans-serif"
@@ -68,11 +68,11 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:baselineAligned="false"
         android:id="@+id/linlay1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/rellay1"
+        android:layout_below="@id/relay1"
+        android:baselineAligned="false"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -85,7 +85,7 @@
             android:background="@color/colorPrimaryDark">
 
             <TextView
-                android:id="@+id/personnage_details_gender"
+                android:id="@+id/character_gender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-light"
@@ -107,7 +107,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/relayStatus"
+            android:id="@+id/character_relay_status"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_weight="1"
@@ -117,7 +117,7 @@
             android:paddingBottom="5dp">
 
             <TextView
-                android:id="@+id/personnage_details_status"
+                android:id="@+id/character_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-light"
@@ -167,7 +167,7 @@
                     android:orientation="vertical">
 
                     <RelativeLayout
-                        android:id="@+id/relayOrigin"
+                        android:id="@+id/character_relayOrigin"
                         android:layout_marginTop="10dp"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="5dp"
@@ -193,7 +193,7 @@
                             app:civ_border_width="2dp" />
 
                         <TextView
-                            android:id="@+id/personnage_details_origin"
+                            android:id="@+id/character_origin"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/origin_label"
@@ -216,7 +216,7 @@
                     </RelativeLayout>
 
                     <RelativeLayout
-                        android:id="@+id/relayLastLocation"
+                        android:id="@+id/character_relayLastLocation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp">
@@ -241,7 +241,7 @@
                             app:civ_border_width="2dp" />
 
                         <TextView
-                            android:id="@+id/personnage_details_last_location"
+                            android:id="@+id/character_last_location"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/last_location_label"
@@ -280,7 +280,7 @@
                             android:textSize="17sp" />
 
                         <TextView
-                            android:id="@+id/personnage_details_description"
+                            android:id="@+id/character_description"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-light"
@@ -320,14 +320,14 @@
                         android:textSize="18sp" />
 
                     <androidx.cardview.widget.CardView
-                        android:layout_below="@id/episodes_label"
-                        android:id="@+id/cardview_episodes_of_character"
+                        android:id="@+id/cardview_rv_episodes"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_centerHorizontal="true"
                         android:layout_marginBottom="5dp"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
+                        android:layout_below="@id/episodes_label"
                         app:cardBackgroundColor="@color/tabindicatorcolor"
                         app:cardCornerRadius="20dp">
 

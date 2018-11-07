@@ -3,15 +3,11 @@ package com.example.mysto.ricknmortybuddykotlin.Fragments.Characters
 import android.content.Context
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
-import butterknife.ButterKnife
 import android.os.Bundle
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import com.google.gson.Gson
-import android.widget.ImageButton
-import butterknife.BindView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import androidx.recyclerview.widget.RecyclerView
 import android.content.SharedPreferences
 import android.view.View
 import androidx.annotation.Nullable
@@ -24,88 +20,76 @@ import com.example.mysto.ricknmortybuddykotlin.R
 import com.example.mysto.ricknmortybuddykotlin.interfaces.Refreshable
 import com.example.mysto.ricknmortybuddykotlin.network.RickNMortyAPI.GetDataService
 import com.example.mysto.ricknmortybuddykotlin.network.RickNMortyAPI.RetrofitClientInstance
+import kotlinx.android.synthetic.main.characters_fragment.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
+import kotlin.collections.ArrayList
 
 
-class Characters_Fragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Refreshable {
+class CharactersFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Refreshable {
 
     internal var view: View? = null
-    internal var rawPersonnagesResponse: RawCharactersServerResponse? = null
-    internal var listPersonnages: MutableList<Character>? = null
+    internal var rawCharactersServerResponse: RawCharactersServerResponse? = null
+    internal var charactersList: MutableList<Character>? = null
     internal var gson: Gson = Gson()
     internal var service: GetDataService = RetrofitClientInstance.retrofitInstance!!.create(GetDataService::class.java)
     internal var sharedPreferences: SharedPreferences? = null
     internal var adapter: RecyclerViewAdapter? = null
-
-    @BindView(R.id.personnagesRecyclerView)
-    lateinit var rv_personnages: RecyclerView
-    @BindView(R.id.swipe_container)
-    lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
-    @BindView(R.id.searchViewQuery)
-    lateinit var searchViewCharacter: SearchView
-    @BindView(R.id.imageViewSearchMenu)
-    lateinit var imageButton: ImageButton
 
     @Nullable
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         // Inflate the view
         view = inflater.inflate(R.layout.characters_fragment, container, false)
-        ButterKnife.bind(this, view!!)
 
-        listPersonnages = ArrayList()
-        adapter = RecyclerViewAdapter(this,listPersonnages)
-        rv_personnages.layoutManager = GridLayoutManager(view!!.context, 2)
-        rv_personnages.adapter = adapter
+        charactersList = ArrayList()
+        adapter = RecyclerViewAdapter(this,charactersList)
+        charactersFragmentRecyclerView.layoutManager = GridLayoutManager(view!!.context, 2)
+        charactersFragmentRecyclerView.adapter = adapter
 
         sharedPreferences = view!!.context.getSharedPreferences("APP_DATA", Context.MODE_PRIVATE)
 
         // Refresh Layout
-        mSwipeRefreshLayout.setOnRefreshListener(this)
+        charactersFragmentSwipe_container.setOnRefreshListener(this)
 
         // SearchView
-        searchViewCharacter.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        charactersFragmentSearchViewQuery.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(s: String): Boolean {
-                if (!searchViewCharacter.isIconified) {
-                    searchViewCharacter.isIconified = true
-                }
+                if (!charactersFragmentSearchViewQuery.isIconified) { charactersFragmentSearchViewQuery.isIconified = true }
                 return false
             }
-
-
             override fun onQueryTextChange(userInput: String): Boolean {
-                val filterCharacterList = filter(rawPersonnagesResponse?.results, userInput)
+                val filterCharacterList = filter(rawCharactersServerResponse?.results, userInput)
                 adapter!!.setFilter(filterCharacterList)
                 return true
             }
         })
 
         // Sequences of colors from the loading circle
-        mSwipeRefreshLayout.setColorSchemeResources(
+        charactersFragmentSwipe_container.setColorSchemeResources(
             android.R.color.holo_green_dark,
             android.R.color.holo_orange_dark,
             android.R.color.holo_blue_dark
         )
         // Background color for the loading
-        mSwipeRefreshLayout.setProgressBackgroundColorSchemeResource(R.color.colorPrimaryDark)
+        charactersFragmentSwipe_container.setProgressBackgroundColorSchemeResource(R.color.colorPrimaryDark)
 
         // Get local Data for Character if exist
         val json = sharedPreferences!!.getString("Characters_List", null)
 
         if (json != null) {
-            rawPersonnagesResponse = gson.fromJson<RawCharactersServerResponse>(json, RawCharactersServerResponse::class.java)
-            listPersonnages = rawPersonnagesResponse!!.results as MutableList<Character>?
+            rawCharactersServerResponse = gson.fromJson<RawCharactersServerResponse>(json, RawCharactersServerResponse::class.java)
+            charactersList = rawCharactersServerResponse!!.results as MutableList<Character>?
 
-            listPersonnages!!.sortWith(Comparator { character2, character1 -> character2!!.name!!.compareTo(character1!!.name!!) })
+            charactersList!!.sortWith(Comparator { character2, character1 -> character2!!.name!!.compareTo(character1!!.name!!) })
 
-            adapter!!.setFilter(listPersonnages!!)
+            adapter!!.setFilter(charactersList!!)
 
         } else {
-            mSwipeRefreshLayout.post {
-                mSwipeRefreshLayout.isRefreshing = true
+            charactersFragmentSwipe_container.post {
+                charactersFragmentSwipe_container.isRefreshing = true
                 loadRecyclerViewData()
             }
         }
@@ -115,26 +99,25 @@ class Characters_Fragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Re
 
     override fun loadRecyclerViewData() {
 
-        mSwipeRefreshLayout.isRefreshing = true
+        charactersFragmentSwipe_container.isRefreshing = true
 
         val call = service.getAllPersonnagesFromPage(1)
 
         call.enqueue(object : Callback<RawCharactersServerResponse> {
             override fun onResponse(call: Call<RawCharactersServerResponse>, response: Response<RawCharactersServerResponse>) {
 
-                rawPersonnagesResponse = response.body()
-                listPersonnages = rawPersonnagesResponse!!.results as MutableList<Character>?
+                rawCharactersServerResponse = response.body()
+                charactersList = rawCharactersServerResponse!!.results as MutableList<Character>?
 
-                val numberOfPages = rawPersonnagesResponse!!.info!!.pages
+                val numberOfPages: Int = rawCharactersServerResponse!!.info!!.pages!!
 
-                listPersonnages!!.sortWith(Comparator { character2, character1 -> character2!!.name!!.compareTo(character1!!.name!!) })
+                charactersList!!.sortWith(Comparator { character2, character1 -> character2!!.name!!.compareTo(character1!!.name!!) })
 
-
-                adapter!!.setFilter(listPersonnages!!)
+                adapter!!.setFilter(charactersList!!)
 
                 Toast.makeText(view!!.context, "Vos données sont désormais sauvegardées", Toast.LENGTH_SHORT).show()
 
-                if (numberOfPages!! > 1) {
+                if (numberOfPages > 1) {
 
                     for (i in 2..numberOfPages) {
 
@@ -145,18 +128,15 @@ class Characters_Fragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Re
                                 call: Call<RawCharactersServerResponse>,
                                 response: Response<RawCharactersServerResponse>
                             ) {
+                                charactersList!!.addAll(response.body()!!.results as List<Character>)
+                                charactersList!!.sortWith(Comparator { character2, character1 -> character2!!.name!!.compareTo(character1!!.name!!) })
 
-                                listPersonnages!!.addAll(response.body()!!.results as List<Character>)
-
-                                listPersonnages!!.sortWith(Comparator { character2, character1 -> character2!!.name!!.compareTo(character1!!.name!!) })
-
-                                adapter!!.setFilter(listPersonnages!!)
-                                rawPersonnagesResponse!!.results = listPersonnages
+                                adapter!!.setFilter(charactersList!!)
+                                rawCharactersServerResponse!!.results = charactersList
 
                                 sharedPreferences!!.edit()
-                                    .putString("Characters_List", gson.toJson(rawPersonnagesResponse))
+                                    .putString("Characters_List", gson.toJson(rawCharactersServerResponse))
                                     .apply()
-
                             }
 
                             override fun onFailure(call: Call<RawCharactersServerResponse>, t: Throwable) {
@@ -165,7 +145,7 @@ class Characters_Fragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Re
                                     "Un soucis s'est produit lors de la récupération du reste des personnages",
                                     Toast.LENGTH_LONG
                                 ).show()
-                                mSwipeRefreshLayout.isRefreshing = false
+                                charactersFragmentSwipe_container.isRefreshing = false
                             }
                         })
 
@@ -173,15 +153,14 @@ class Characters_Fragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Re
 
                 } else {
 
-                    listPersonnages!!.sortWith(Comparator { character2, character1 -> character2!!.name!!.compareTo(character1!!.name!!) })
+                    charactersList!!.sortWith(Comparator { character2, character1 -> character2!!.name!!.compareTo(character1!!.name!!) })
 
                     sharedPreferences!!.edit()
-                        .putString("Characters_List", gson.toJson(rawPersonnagesResponse))
+                        .putString("Characters_List", gson.toJson(rawCharactersServerResponse))
                         .apply()
                 }
 
-                mSwipeRefreshLayout.isRefreshing = false
-
+                charactersFragmentSwipe_container.isRefreshing = false
             }
 
             override fun onFailure(call: Call<RawCharactersServerResponse>, t: Throwable) {
@@ -190,7 +169,7 @@ class Characters_Fragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Re
                     "Impossible de joindre le serveur, réessayer ultérieurement",
                     Toast.LENGTH_SHORT
                 ).show()
-                mSwipeRefreshLayout.isRefreshing = false
+                charactersFragmentSwipe_container.isRefreshing = false
             }
         })
 
@@ -207,9 +186,9 @@ class Characters_Fragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Re
             val status = model.status!!.toLowerCase()
             val gender = model.gender!!.toLowerCase()
             val origin = model.origin!!.name!!.toLowerCase()
-            val last_location = model.location!!.name!!.toLowerCase()
+            val lastLocation = model.location!!.name!!.toLowerCase()
 
-            if (name.contains(filter) || status.contains(filter) || gender == filter || origin.contains(filter) || last_location.contains(filter)) {
+            if (name.contains(filter) || status.contains(filter) || gender == filter || origin.contains(filter) || lastLocation.contains(filter)) {
                 filteredList.add(model)
             }
         }
