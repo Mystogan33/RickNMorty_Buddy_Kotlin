@@ -68,11 +68,18 @@
                 app:tabIndicatorColor="@color/colorAccent"
                 app:tabBackground="@color/tabindicatorcolor" />
 
+            <!--<ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/final2" />-->
+
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/mainActivityViewPager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/fuck2"/>
+                android:background="@drawable/final2"/>
 
         </LinearLayout>
 

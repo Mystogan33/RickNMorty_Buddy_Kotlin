@@ -18,7 +18,7 @@ import com.example.mysto.ricknmortybuddykotlin.R
 import com.example.mysto.ricknmortybuddykotlin.interfaces.Refreshable
 import com.example.mysto.ricknmortybuddykotlin.network.JsonBin.GetDataService
 import com.example.mysto.ricknmortybuddykotlin.network.JsonBin.RetrofitClientInstance
-import kotlinx.android.synthetic.main.episodes_fragment.*
+import kotlinx.android.synthetic.main.episodes_fragment.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,7 +26,7 @@ import retrofit2.Response
 
 class EpisodesFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Refreshable {
 
-    internal var view: View? = null
+    private var root: View? = null
     internal var listEpisodes: RawEpisodesServerResponse? = null
     internal var gson: Gson = Gson()
     private var service: GetDataService = RetrofitClientInstance.retrofitInstance!!.create(GetDataService::class.java)
@@ -34,20 +34,20 @@ class EpisodesFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Refre
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        view = inflater.inflate(R.layout.episodes_fragment, container, false)
+        root = inflater.inflate(R.layout.episodes_fragment, container, false)
 
-        episodesFragmentSwipeRefreshLayout.setOnRefreshListener(this)
-        episodesFragmentSwipeRefreshLayout.setColorSchemeResources(
+        root!!.episodesFragmentSwipeRefreshLayout.setOnRefreshListener(this)
+        root!!.episodesFragmentSwipeRefreshLayout.setColorSchemeResources(
             android.R.color.holo_green_dark,
             android.R.color.holo_orange_dark,
             android.R.color.holo_blue_dark
         )
 
-        episodesFragmentSwipeRefreshLayout.setProgressBackgroundColorSchemeResource(R.color.colorPrimaryDark)
+        root!!.episodesFragmentSwipeRefreshLayout.setProgressBackgroundColorSchemeResource(R.color.colorPrimaryDark)
 
-        episodesFragmentSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        root!!.episodesFragmentSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(s: String): Boolean {
-                if (!episodesFragmentSearchView.isIconified) episodesFragmentSearchView.isIconified = true
+                if (!root!!.episodesFragmentSearchView.isIconified) root!!.episodesFragmentSearchView.isIconified = true
                 return false
             }
             override fun onQueryTextChange(userInput: String): Boolean {
@@ -57,48 +57,48 @@ class EpisodesFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Refre
             }
         })
 
-        val sharedPreferences = view!!.context.getSharedPreferences("APP_DATA", Context.MODE_PRIVATE)
+        val sharedPreferences = root!!.context.getSharedPreferences("APP_DATA", Context.MODE_PRIVATE)
         val json = sharedPreferences.getString("Episodes_List", null)
 
         adapter = RecyclerViewAdapter(this, ArrayList())
-        episodesFragmentRecyclerView.layoutManager = GridLayoutManager(view!!.context, 3)
-        episodesFragmentRecyclerView.adapter = adapter!!
+        root!!.episodesFragmentRecyclerView.layoutManager = GridLayoutManager(root!!.context, 3)
+        root!!.episodesFragmentRecyclerView.adapter = adapter!!
 
         if (json != null) {
             listEpisodes = gson.fromJson<RawEpisodesServerResponse>(json, RawEpisodesServerResponse::class.java)
             adapter!!.setFilter(listEpisodes!!.results!!)
         } else {
-            episodesFragmentSwipeRefreshLayout.post {
-                episodesFragmentSwipeRefreshLayout.isRefreshing = true
+            root!!.episodesFragmentSwipeRefreshLayout.post {
+                root!!.episodesFragmentSwipeRefreshLayout.isRefreshing = true
                 loadRecyclerViewData()
             }
         }
 
-        return view
+        return root
     }
 
     override fun loadRecyclerViewData() {
-        episodesFragmentSwipeRefreshLayout.isRefreshing = true
+        root!!.episodesFragmentSwipeRefreshLayout.isRefreshing = true
         val call = service.allEpisodes
 
         call.enqueue(object : Callback<RawEpisodesServerResponse> {
             override fun onResponse(call: Call<RawEpisodesServerResponse>, response: Response<RawEpisodesServerResponse>) {
                 listEpisodes = response.body()!!
-                val sharedPreferences = view!!.context.getSharedPreferences("APP_DATA", Context.MODE_PRIVATE)
+                val sharedPreferences = root!!.context.getSharedPreferences("APP_DATA", Context.MODE_PRIVATE)
                 sharedPreferences.edit()
                     .putString("Episodes_List", gson.toJson(listEpisodes))
                     .apply()
                 adapter!!.setFilter(listEpisodes!!.results!!)
-                episodesFragmentSwipeRefreshLayout.isRefreshing = false
+                root!!.episodesFragmentSwipeRefreshLayout.isRefreshing = false
             }
 
             override fun onFailure(call: Call<RawEpisodesServerResponse>, t: Throwable) {
                 Toast.makeText(
-                    view!!.context,
+                    root!!.context,
                     "Impossible de joindre le serveur, réessayer ultérieurement",
                     Toast.LENGTH_SHORT
                 ).show()
-                episodesFragmentSwipeRefreshLayout.isRefreshing = false
+                root!!.episodesFragmentSwipeRefreshLayout.isRefreshing = false
             }
         })
     }

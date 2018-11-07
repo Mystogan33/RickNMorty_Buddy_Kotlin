@@ -1,18 +1,16 @@
 package com.example.mysto.ricknmortybuddykotlin.Fragments.Characters
 
 import android.content.Context
-import android.widget.Toast
-import androidx.recyclerview.widget.GridLayoutManager
-import android.os.Bundle
-import android.view.ViewGroup
-import android.view.LayoutInflater
-import com.google.gson.Gson
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import android.content.SharedPreferences
+import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
-import androidx.annotation.Nullable
+import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.mysto.ricknmortybuddykotlin.Fragments.Characters.adapter.RecyclerViewAdapter
 import com.example.mysto.ricknmortybuddykotlin.Fragments.Characters.models.Character
 import com.example.mysto.ricknmortybuddykotlin.Fragments.Characters.models.RawCharactersServerResponse
@@ -20,17 +18,17 @@ import com.example.mysto.ricknmortybuddykotlin.R
 import com.example.mysto.ricknmortybuddykotlin.interfaces.Refreshable
 import com.example.mysto.ricknmortybuddykotlin.network.RickNMortyAPI.GetDataService
 import com.example.mysto.ricknmortybuddykotlin.network.RickNMortyAPI.RetrofitClientInstance
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.characters_fragment.*
+import kotlinx.android.synthetic.main.characters_fragment.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
-import kotlin.collections.ArrayList
 
 
 class CharactersFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Refreshable {
 
-    internal var view: View? = null
+    private var root: View? = null
     internal var rawCharactersServerResponse: RawCharactersServerResponse? = null
     internal var charactersList: MutableList<Character>? = null
     internal var gson: Gson = Gson()
@@ -38,24 +36,23 @@ class CharactersFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Ref
     internal var sharedPreferences: SharedPreferences? = null
     internal var adapter: RecyclerViewAdapter? = null
 
-    @Nullable
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         // Inflate the view
-        view = inflater.inflate(R.layout.characters_fragment, container, false)
+        root = inflater.inflate(R.layout.characters_fragment, container, false)
 
         charactersList = ArrayList()
         adapter = RecyclerViewAdapter(this,charactersList)
-        charactersFragmentRecyclerView.layoutManager = GridLayoutManager(view!!.context, 2)
-        charactersFragmentRecyclerView.adapter = adapter
+        root!!.charactersFragmentRecyclerView.layoutManager = GridLayoutManager(root!!.context!!, 2)
+        root!!.charactersFragmentRecyclerView.adapter = adapter
 
-        sharedPreferences = view!!.context.getSharedPreferences("APP_DATA", Context.MODE_PRIVATE)
+        sharedPreferences = root!!.context.getSharedPreferences("APP_DATA", Context.MODE_PRIVATE)
 
         // Refresh Layout
-        charactersFragmentSwipe_container.setOnRefreshListener(this)
+        root!!.charactersFragmentSwipe_container.setOnRefreshListener(this)
 
         // SearchView
-        charactersFragmentSearchViewQuery.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        root!!.charactersFragmentSearchViewQuery.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(s: String): Boolean {
                 if (!charactersFragmentSearchViewQuery.isIconified) { charactersFragmentSearchViewQuery.isIconified = true }
                 return false
@@ -68,13 +65,13 @@ class CharactersFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Ref
         })
 
         // Sequences of colors from the loading circle
-        charactersFragmentSwipe_container.setColorSchemeResources(
+        root!!.charactersFragmentSwipe_container.setColorSchemeResources(
             android.R.color.holo_green_dark,
             android.R.color.holo_orange_dark,
             android.R.color.holo_blue_dark
         )
         // Background color for the loading
-        charactersFragmentSwipe_container.setProgressBackgroundColorSchemeResource(R.color.colorPrimaryDark)
+        root!!.charactersFragmentSwipe_container.setProgressBackgroundColorSchemeResource(R.color.colorPrimaryDark)
 
         // Get local Data for Character if exist
         val json = sharedPreferences!!.getString("Characters_List", null)
@@ -88,18 +85,18 @@ class CharactersFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Ref
             adapter!!.setFilter(charactersList!!)
 
         } else {
-            charactersFragmentSwipe_container.post {
-                charactersFragmentSwipe_container.isRefreshing = true
+            root!!.charactersFragmentSwipe_container.post {
+                root!!.charactersFragmentSwipe_container.isRefreshing = true
                 loadRecyclerViewData()
             }
         }
 
-        return view
+        return root
     }
 
     override fun loadRecyclerViewData() {
 
-        charactersFragmentSwipe_container.isRefreshing = true
+        root!!.charactersFragmentSwipe_container.isRefreshing = true
 
         val call = service.getAllPersonnagesFromPage(1)
 
@@ -115,7 +112,7 @@ class CharactersFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Ref
 
                 adapter!!.setFilter(charactersList!!)
 
-                Toast.makeText(view!!.context, "Vos données sont désormais sauvegardées", Toast.LENGTH_SHORT).show()
+                Toast.makeText(root!!.context, "Vos données sont désormais sauvegardées", Toast.LENGTH_SHORT).show()
 
                 if (numberOfPages > 1) {
 
@@ -141,11 +138,11 @@ class CharactersFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Ref
 
                             override fun onFailure(call: Call<RawCharactersServerResponse>, t: Throwable) {
                                 Toast.makeText(
-                                    view!!.context,
+                                    root!!.context,
                                     "Un soucis s'est produit lors de la récupération du reste des personnages",
                                     Toast.LENGTH_LONG
                                 ).show()
-                                charactersFragmentSwipe_container.isRefreshing = false
+                                root!!.charactersFragmentSwipe_container.isRefreshing = false
                             }
                         })
 
@@ -160,16 +157,16 @@ class CharactersFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Ref
                         .apply()
                 }
 
-                charactersFragmentSwipe_container.isRefreshing = false
+                root!!.charactersFragmentSwipe_container.isRefreshing = false
             }
 
             override fun onFailure(call: Call<RawCharactersServerResponse>, t: Throwable) {
                 Toast.makeText(
-                    view!!.context,
+                    root!!.context,
                     "Impossible de joindre le serveur, réessayer ultérieurement",
                     Toast.LENGTH_SHORT
                 ).show()
-                charactersFragmentSwipe_container.isRefreshing = false
+                root!!.charactersFragmentSwipe_container.isRefreshing = false
             }
         })
 

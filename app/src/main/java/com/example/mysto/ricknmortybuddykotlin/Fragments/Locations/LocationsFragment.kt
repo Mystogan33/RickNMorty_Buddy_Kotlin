@@ -20,6 +20,7 @@ import com.example.mysto.ricknmortybuddykotlin.network.JsonBin.GetDataService
 import com.example.mysto.ricknmortybuddykotlin.network.JsonBin.RetrofitClientInstance
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.locations_fragment.*
+import kotlinx.android.synthetic.main.locations_fragment.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -28,8 +29,7 @@ import java.util.*
 
 class LocationsFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Refreshable {
 
-    internal var view: View? = null
-
+    private var root: View? = null
     internal var rawLocationsResponse: RawLocationsServerResponse? = null
     internal var listLocations: MutableList<Location>? = null
     internal var gson: Gson = Gson()
@@ -39,27 +39,27 @@ class LocationsFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Refr
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        view = inflater.inflate(R.layout.locations_fragment, container, false)
+        root = inflater.inflate(R.layout.locations_fragment, container, false)
 
         listLocations = ArrayList()
         adapter = RecyclerViewAdapter(this, listLocations)
-        locationsFragmentRecyclerView.layoutManager = LinearLayoutManager(view!!.context)
-        locationsFragmentRecyclerView.adapter = adapter
+        root!!.locationsFragmentRecyclerView.layoutManager = LinearLayoutManager(root!!.context)
+        root!!.locationsFragmentRecyclerView.adapter = adapter
 
-        sharedPreferences = view!!.context.getSharedPreferences("APP_DATA", Context.MODE_PRIVATE)
+        sharedPreferences = root!!.context.getSharedPreferences("APP_DATA", Context.MODE_PRIVATE)
 
         // Refresh Layout
-        locationsFragmentSwipeRefreshLayout.setOnRefreshListener(this)
-        locationsFragmentSwipeRefreshLayout.setColorSchemeResources(
+        root!!.locationsFragmentSwipeRefreshLayout.setOnRefreshListener(this)
+        root!!.locationsFragmentSwipeRefreshLayout.setColorSchemeResources(
             android.R.color.holo_green_dark,
             android.R.color.holo_orange_dark,
             android.R.color.holo_blue_dark
         )
-        locationsFragmentSwipeRefreshLayout.setProgressBackgroundColorSchemeResource(R.color.colorPrimaryDark)
+        root!!.locationsFragmentSwipeRefreshLayout.setProgressBackgroundColorSchemeResource(R.color.colorPrimaryDark)
 
-        locationsFragmentSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        root!!.locationsFragmentSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(userInput: String): Boolean {
-                if (!locationsFragmentSearchView.isIconified) locationsFragmentSearchView.isIconified = true
+                if (!root!!.locationsFragmentSearchView.isIconified) root!!.locationsFragmentSearchView.isIconified = true
                 return false
             }
             override fun onQueryTextChange(userInput: String): Boolean {
@@ -81,15 +81,15 @@ class LocationsFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Refr
             adapter!!.setFilter(listLocations!!)
 
         } else {
-            locationsFragmentSwipeRefreshLayout.post { loadRecyclerViewData() }
+            root!!.locationsFragmentSwipeRefreshLayout.post { loadRecyclerViewData() }
         }
 
-        return view
+        return root
     }
 
     override fun loadRecyclerViewData() {
 
-        locationsFragmentSwipeRefreshLayout.isRefreshing = true
+        root!!.locationsFragmentSwipeRefreshLayout.isRefreshing = true
 
         val call = service.allLocations
         call.enqueue(object : Callback<RawLocationsServerResponse> {
@@ -110,17 +110,17 @@ class LocationsFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Refr
                     .putString("Locations_List", gson.toJson(rawLocationsResponse))
                     .apply()
 
-                Toast.makeText(view!!.context, "Vos données sont désormais sauvegardées", Toast.LENGTH_SHORT).show()
+                Toast.makeText(root!!.context, "Vos données sont désormais sauvegardées", Toast.LENGTH_SHORT).show()
 
-                locationsFragmentSwipeRefreshLayout.isRefreshing = false
+                root!!.locationsFragmentSwipeRefreshLayout.isRefreshing = false
             }
             override fun onFailure(call: Call<RawLocationsServerResponse>, t: Throwable) {
                 Toast.makeText(
-                    view!!.context,
+                    root!!.context,
                     "Impossible de joindre le serveur, réessayer ultérieurement",
                     Toast.LENGTH_SHORT
                 ).show()
-                locationsFragmentSwipeRefreshLayout.isRefreshing = false
+                root!!.locationsFragmentSwipeRefreshLayout.isRefreshing = false
             }
         })
     }

@@ -87,9 +87,8 @@ class RecyclerViewAdapter(private val mContext: Fragment, private var listEpisod
     }
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         var episodeFragmentItemName: TextView = itemView.episode_fragment_item_name
-        var episodeFragmentItemSeason: TextView = itemView.episode_details_season
+        var episodeFragmentItemSeason: TextView = itemView.episode_fragment_item_season
         var episodeFragmentItemImg: ImageView = itemView.episode_fragment_item_img
         var episodeFragmentItemCardView: CardView = itemView.episode_fragment_item_cardview
     }
