@@ -39,14 +39,12 @@ class EpisodeDetailsActivity : AppCompatActivity() {
     }
 
     private fun initActionBar() {
-
         setSupportActionBar(episode_details_toolbar)
         val actionbar = supportActionBar
         actionbar?.setDisplayHomeAsUpEnabled(true)
         actionbar?.setDisplayShowHomeEnabled(true)
         actionbar?.setDisplayShowTitleEnabled(false)
         actionbar?.setHomeAsUpIndicator(R.drawable.ic_keyboard_arrow_left_accent)
-
     }
 
     private fun setValuesToViews() {
@@ -57,7 +55,6 @@ class EpisodeDetailsActivity : AppCompatActivity() {
     }
 
     private fun loadCharacters() {
-
         for (characterUrl in listURLCharacters) {
 
             val id = characterUrl.split("/character/".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1]
@@ -68,16 +65,13 @@ class EpisodeDetailsActivity : AppCompatActivity() {
                     response.body()?.let { listCharacters.add(it) }
                     adapter?.refreshData(listCharacters)
                 }
-
                 override fun onFailure(call: Call<Character>, t: Throwable) {}
             })
 
         }
-
     }
 
     private fun loadImage(imgUrl: String, imgView: ImageView?) {
-
         Picasso.with(app)
             .load(imgUrl)
             .networkPolicy(NetworkPolicy.OFFLINE)
@@ -100,7 +94,6 @@ class EpisodeDetailsActivity : AppCompatActivity() {
                         })
                 }
             })
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

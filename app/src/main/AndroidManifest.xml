@@ -21,14 +21,16 @@
         </activity>
         <activity
             android:name=".episodeDetails.EpisodeDetailsActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
             android:configChanges="orientation|screenSize" />
         <activity
             android:name=".locationDetails.LocationDetailsActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
             android:configChanges="orientation|keyboardHidden" />
 
         <activity
             android:name=".characterDetails.CharacterDetailsActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
             android:configChanges="orientation|keyboardHidden" />
 
     </application>

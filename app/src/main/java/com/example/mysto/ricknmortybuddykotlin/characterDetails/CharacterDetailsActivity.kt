@@ -209,7 +209,7 @@ class CharacterDetailsActivity : AppCompatActivity() {
 
             if (listURLEpisodes != null) {
 
-                val params = relay_recyclerview.layoutParams
+                val params = episodes_recyclerview.layoutParams
 
                 if (listURLEpisodes!!.size <= 10) {
                     params.height = FrameLayout.LayoutParams.WRAP_CONTENT
