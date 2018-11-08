@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fuck3"
+    android:fitsSystemWindows="true"
     tools:context=".characterDetails.CharacterDetailsActivity">
 
     <androidx.appcompat.widget.Toolbar
