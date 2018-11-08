@@ -18,6 +18,7 @@ import com.example.mysto.ricknmortybuddykotlin.mainActivity.adapter.ViewPagerAda
 import com.example.mysto.ricknmortybuddykotlin.notifications.NotificationHelperWelcomeBack
 import com.getkeepsafe.taptargetview.TapTarget
 import com.getkeepsafe.taptargetview.TapTargetSequence
+import kotlinx.android.synthetic.main.include_main_activity.*
 import kotlinx.android.synthetic.main.main_activity.*
 import java.text.SimpleDateFormat
 import java.util.*

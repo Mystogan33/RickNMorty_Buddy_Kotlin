@@ -31,6 +31,7 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'androidx.percentlayout:percentlayout:1.0.0'
     implementation 'de.hdodenhof:circleimageview:2.2.0'
+    implementation 'com.android.support:design:28.1.1'
 
 
     // Picasso
