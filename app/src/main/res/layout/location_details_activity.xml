@@ -143,6 +143,7 @@
             android:id="@+id/cardview_recyclerview_characters"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:minHeight="150dp"
             android:layout_below="@id/location_details_description"
             android:layout_margin="8dp"
             app:cardCornerRadius="20dp"
