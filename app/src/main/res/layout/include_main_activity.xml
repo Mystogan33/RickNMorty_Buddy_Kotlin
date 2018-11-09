@@ -27,7 +27,7 @@
                 <ImageView
                     android:id="@+id/backdrop"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/detail_backdrop_height"
                     android:scaleType="centerCrop"
                     android:fitsSystemWindows="true"
                     android:src="@drawable/background3"

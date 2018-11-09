@@ -32,147 +32,186 @@
         android:layout_height="240dp">
     </com.dailymotion.android.player.sdk.PlayerWebView>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardview_dtls"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <androidx.core.widget.NestedScrollView
         android:layout_below="@id/webView"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginBottom="5dp"
-        app:cardCornerRadius="20dp"
-        android:elevation="20dp"
-        app:cardBackgroundColor="@color/tabindicatorcolor">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/episode_details_season"
-                android:layout_width="wrap_content"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardview_dtls"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="5dp"
-                android:text="S01EP01"
-                android:textColor="@color/colorValidate"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/episode_details_name"
-                android:layout_width="wrap_content"
-                android:layout_height="21dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginTop="5dp"
-                android:text="Walaladubdub !"
-                android:textColor="@color/colorValidate"
-                android:textSize="15sp"
-                android:layout_below="@+id/episode_details_season"
-                android:layout_marginStart="15dp"/>
-
-            <TextView
-                android:id="@+id/episode_details_air_date"
-                android:layout_width="wrap_content"
-                android:layout_height="17dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
-                android:text="December 2, 2013"
-                android:textColor="@color/colorValidate"
-                android:textStyle="bold"
-                android:textAlignment="center"
-                android:layout_below="@id/episode_details_name"/>
+                app:cardCornerRadius="20dp"
+                android:elevation="20dp"
+                app:cardBackgroundColor="@color/tabindicatorcolor">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/episode_details_img"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentTop="true"
-                android:src="@drawable/no_image"
-                app:civ_border_color="#FFFFFF"
-                app:civ_border_width="2dp" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="vertical">
 
-        </RelativeLayout>
+                    <TextView
+                        android:id="@+id/episode_details_season"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="5dp"
+                        android:text="S01EP01"
+                        android:textColor="@color/colorValidate"
+                        android:textStyle="bold" />
 
-    </androidx.cardview.widget.CardView>
+                    <TextView
+                        android:id="@+id/episode_details_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="21dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Walaladubdub !"
+                        android:textColor="@color/colorValidate"
+                        android:textSize="15sp"
+                        android:layout_below="@+id/episode_details_season"
+                        android:layout_marginStart="15dp"/>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/cardview_dtls">
+                    <TextView
+                        android:id="@+id/episode_details_air_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="17dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:text="December 2, 2013"
+                        android:textColor="@color/colorValidate"
+                        android:textStyle="bold"
+                        android:textAlignment="center"
+                        android:layout_below="@id/episode_details_name"/>
 
-        <TextView
-            android:id="@+id/episode_details_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="5dp"
-            android:padding="16dp"
-            android:text="Pas de description disponible."
-            android:textAlignment="center"
-            android:textColor="@color/colorValidate"
-            android:textSize="18sp" />
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/episode_details_img"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentTop="true"
+                        android:src="@drawable/no_image"
+                        app:civ_border_color="#FFFFFF"
+                        app:civ_border_width="2dp" />
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/episode_details_description"
-            android:layout_margin="8dp"
-            app:cardCornerRadius="20dp"
-            app:cardBackgroundColor="@color/colorValidate">
+                </RelativeLayout>
 
+            </androidx.cardview.widget.CardView>
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/episode_details_separator"
-                    android:layout_centerHorizontal="true"
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/episode_details_cardview_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="2dp"
-                    android:text="@string/episode_details_separator_text"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
+                    android:layout_margin="8dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardBackgroundColor="@color/colorPrimaryDark">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/episode_details_description_placeholder"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:text="Description"
+                            android:textSize="18sp"
+                            android:textColor="@color/colorValidate"
+                            android:textStyle="bold"
+                            android:textAlignment="center"/>
+
+                        <TextView
+                            android:id="@+id/episode_details_description"
+                            android:textStyle="italic"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="5dp"
+                            android:padding="8dp"
+                            android:text="@string/cheese_ipsum"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorValidate"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/episode_details_separator"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_below="@id/episode_details_cardview_description"
+                    android:layout_margin="8dp"
                     app:cardCornerRadius="20dp"
-                    app:cardBackgroundColor="@color/tabindicatorcolor">
+                    app:cardBackgroundColor="@color/colorValidate">
 
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/episode_details_recyclerview"
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/episode_details_separator"
+                            android:layout_centerHorizontal="true"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="6dp"/>
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="2dp"
+                            android:text="@string/episode_details_separator_text"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/episode_details_separator"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="8dp"
+                            android:layout_marginBottom="8dp"
+                            app:cardCornerRadius="20dp"
+                            app:cardBackgroundColor="@color/tabindicatorcolor">
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/episode_details_recyclerview"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="6dp"/>
+
+                        </androidx.cardview.widget.CardView>
+
+                    </RelativeLayout>
 
                 </androidx.cardview.widget.CardView>
 
             </RelativeLayout>
 
-        </androidx.cardview.widget.CardView>
+        </LinearLayout>
 
-    </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </RelativeLayout>
