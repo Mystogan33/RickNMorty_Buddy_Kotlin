@@ -131,6 +131,26 @@ class MainActivity : AppCompatActivity() {
                     .transparentTarget(false)           // Specify whether the target is transparent (displays the content underneath)
                     .targetRadius(60)
                     .id(1),
+                TapTarget.forView(
+                    mainActivityRefreshButton,
+                    "Rafraichir toutes les catégories",
+                    "(A noter: Toutes les catégories sont automatiquement rafraichies chaque jour et peuvent être rafraichis avec ce bouton mais vous pouvez les rafraichir manuellement et séparément en swipant vers le bas en haut de chacune des catégories)"
+                )
+                    .outerCircleColor(R.color.tabindicatorcolor)      // Specify a color for the outer circle
+                    .outerCircleAlpha(0.96f)            // Specify the alpha amount for the outer circle
+                    .targetCircleColor(R.color.colorAccent)     // Specify a color for the target circle
+                    .titleTextSize(20)                  // Specify the size (in sp) of the title text
+                    .titleTextColor(R.color.colorAccent)      // Specify the color of the title text
+                    .descriptionTextSize(20)            // Specify the size (in sp) of the description text
+                    .descriptionTextColor(R.color.colorAccent)  // Specify the color of the description text
+                    .textTypeface(Typeface.SANS_SERIF)  // Specify a typeface for the text
+                    .dimColor(R.color.followersBg)            // If set, will dim behind the view with 30% opacity of the given color
+                    .drawShadow(true)                   // Whether to draw a drop shadow or not
+                    .cancelable(false)                  // Whether tapping outside the outer circle dismisses the view
+                    .tintTarget(true)
+                    .transparentTarget(false)           // Specify whether the target is transparent (displays the content underneath)
+                    .targetRadius(60)
+                    .id(2),
                 TapTarget.forView(mainActivityMoreButton, "Plus d'options", "Plus d'options ici ! :)")
                     .outerCircleColor(R.color.tabindicatorcolor)      // Specify a color for the outer circle
                     .outerCircleAlpha(0.96f)            // Specify the alpha amount for the outer circle
@@ -146,23 +166,6 @@ class MainActivity : AppCompatActivity() {
                     .tintTarget(true)                   // Whether to tint the target view's color
                     .transparentTarget(false)           // Specify whether the target is transparent (displays the content underneath)
                     .targetRadius(60)
-                    .id(2),
-                TapTarget.forView(
-                    mainActivityRefreshButton,
-                    "Rafraichir toutes les catégories",
-                    "(A noter: Toutes les catégories sont automatiquement rafraichies chaque jour et peuvent être rafraichis avec ce bouton mais vous pouvez les rafraichir manuellement et séparément en swipant vers le bas en haut de chacune des catégories)"
-                )
-                    .outerCircleColor(R.color.tabindicatorcolor)      // Specify a color for the outer circle
-                    .outerCircleAlpha(0.96f)            // Specify the alpha amount for the outer circle
-                    .titleTextSize(20)                  // Specify the size (in sp) of the title text
-                    .titleTextColor(R.color.colorAccent)      // Specify the color of the title text
-                    .descriptionTextSize(20)            // Specify the size (in sp) of the description text
-                    .descriptionTextColor(R.color.colorAccent)  // Specify the color of the description text
-                    .textTypeface(Typeface.SANS_SERIF)  // Specify a typeface for the text
-                    .drawShadow(true)                   // Whether to draw a drop shadow or not
-                    .cancelable(false)                  // Whether tapping outside the outer circle dismisses the view
-                    .transparentTarget(true)           // Specify whether the target is transparent (displays the content underneath)
-                    .targetRadius(60)
                     .id(3)
             )
             .listener(object : TapTargetSequence.Listener {
@@ -176,7 +179,6 @@ class MainActivity : AppCompatActivity() {
                             val handler = Handler()
                             handler.postDelayed({ mainActivityDrawerLayout.closeDrawers() }, 500)
                         }
-                        3 -> refreshAllFragments()
                     }
                 }
                 override fun onSequenceCanceled(lastTarget: TapTarget) {

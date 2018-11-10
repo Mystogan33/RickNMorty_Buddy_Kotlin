@@ -44,8 +44,7 @@
         android:textSize="22sp"
         android:transitionName="nameLocation"
         android:layout_below="@+id/location_details_img_fullsize"
-        android:textAlignment="textStart"
-        />
+        android:textAlignment="textStart" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -103,6 +102,15 @@
                         android:textAlignment="center"
                         android:layout_toEndOf="@id/location_details_type_placeholder"/>
 
+                    <View
+                        android:id="@+id/type_underscore"
+                        android:layout_marginStart="15dp"
+                        android:layout_width="50dp"
+                        android:layout_height="1dp"
+                        android:layout_below="@+id/location_details_type"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/colorAccent" />
+
                     <TextView
                         android:id="@+id/location_details_dimension_placeholder"
                         android:layout_width="wrap_content"
@@ -115,14 +123,14 @@
                         android:textColor="@color/colorAccent"
                         android:textStyle="bold"
                         android:textAlignment="center"
-                        android:layout_below="@id/location_details_type_placeholder" />
+                        android:layout_below="@id/type_underscore" />
 
 
                     <TextView
                         android:id="@+id/location_details_dimension"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/location_details_type"
+                        android:layout_below="@+id/type_underscore"
                         android:layout_marginStart="15dp"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
@@ -131,7 +139,7 @@
                         android:ellipsize="end"
                         android:maxLines="1"
                         android:textColor="@color/colorValidate"
-                        android:layout_toEndOf="@id/location_details_dimension_placeholder"/>
+                        android:layout_toEndOf="@id/location_details_dimension_placeholder" />
 
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
@@ -152,13 +160,22 @@
                         android:id="@+id/location_details_description_placeholder"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
+                        android:layout_gravity="center"
                         android:layout_marginTop="5dp"
                         android:text="Description"
                         android:textSize="18sp"
                         android:textColor="@color/colorAccent"
                         android:textStyle="bold"
                         android:textAlignment="center"/>
+
+                    <View
+                        android:id="@+id/description_underscore"
+                        android:layout_width="150dp"
+                        android:layout_height="1dp"
+                        android:layout_gravity="center"
+                        android:layout_below="@+id/episode_details_season"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/colorValidate" />
 
                     <TextView
                         android:id="@+id/location_details_description"
@@ -168,6 +185,7 @@
                         android:layout_marginEnd="8dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
                         android:padding="8dp"
                         android:text="Pas de description disponible"
                         android:textAlignment="center"

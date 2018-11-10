@@ -54,7 +54,7 @@ class LocationDetailsActivity : AppCompatActivity() {
             call?.enqueue(object : retrofit2.Callback<Character> {
                 override fun onResponse(call: Call<Character>, response: Response<Character>) {
                     response.body()?.let { listCharacters.add(it) }
-                    adapter.refreshData(listCharacters!!.toList())
+                    adapter.refreshData(listCharacters.toList())
                 }
                 override fun onFailure(call: Call<Character>, t: Throwable) {}
             })
