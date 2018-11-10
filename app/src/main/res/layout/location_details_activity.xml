@@ -15,7 +15,7 @@
         android:layout_height="250dp"
         android:scaleType="centerCrop"
         android:transitionName="imageLocation"
-        app:srcCompat="@drawable/final2"
+        app:srcCompat="@drawable/gradient2"
         android:alpha="0.80">
 
     </ImageView>

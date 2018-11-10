@@ -158,7 +158,7 @@ class CharacterDetailsActivity : AppCompatActivity() {
 
                 if (episode.id!! == Integer.valueOf(id)) {
                     listEpisodesDetails?.add(episode)
-                    adapter?.refreshData(listEpisodesDetails!!)
+                    adapter.refreshData(listEpisodesDetails!!)
                 }
 
             }
@@ -176,7 +176,7 @@ class CharacterDetailsActivity : AppCompatActivity() {
 
         listEpisodesDetails = ArrayList()
         adapter = RecyclerViewEpisodesAdapter(listEpisodesDetails!!, this)
-        
+
             characterDetails = extras!!.getSerializable("personnage_details") as Character?
 
             this.setValuesToViews()
