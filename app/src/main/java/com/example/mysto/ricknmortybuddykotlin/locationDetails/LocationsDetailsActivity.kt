@@ -21,17 +21,15 @@ import retrofit2.Response
 
 class LocationDetailsActivity : AppCompatActivity() {
 
-    private var locationDetails: Location? = null
-
-    internal var gson: Gson? = Gson()
+    lateinit var locationDetails: Location
     private var service: GetDataService? = RetrofitClientInstance.retrofitInstance?.create(GetDataService::class.java)
 
-    internal var adapter: RecyclerViewEpisodesCharactersAdapter? = null
-    private var listURLCharacters: List<String>? = null
-    internal var listCharacters: MutableList<Character>? = null
+    lateinit var adapter: RecyclerViewEpisodesCharactersAdapter
+    var listURLCharacters: List<String> = ArrayList()
+    var listCharacters: MutableList<Character> = ArrayList()
 
     private var extras: Bundle? = null
-    internal var app: AppCompatActivity? = null
+    private var app: AppCompatActivity = this
 
     private fun initActionBar() {
         setSupportActionBar(location_details_toolbar)
@@ -43,20 +41,20 @@ class LocationDetailsActivity : AppCompatActivity() {
     }
 
     private fun setValuesToViews() {
-        location_details_name.text = locationDetails?.name
-        location_details_dimension.text = locationDetails?.dimension
-        location_details_type.text = locationDetails?.type
+        location_details_name.text = locationDetails.name
+        location_details_dimension.text = locationDetails.dimension
+        location_details_type.text = locationDetails.type
     }
 
     private fun loadCharacters() {
-        for (characterUrl in listURLCharacters!!) {
+        for (characterUrl in listURLCharacters) {
             val id = characterUrl.split("/character/".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1]
             val call = service?.getPersonnageById(Integer.valueOf(id))
 
             call?.enqueue(object : retrofit2.Callback<Character> {
                 override fun onResponse(call: Call<Character>, response: Response<Character>) {
-                    response.body()?.let { listCharacters?.add(it) }
-                    adapter?.refreshData(listCharacters)
+                    response.body()?.let { listCharacters.add(it) }
+                    adapter.refreshData(listCharacters!!.toList())
                 }
                 override fun onFailure(call: Call<Character>, t: Throwable) {}
             })
@@ -92,23 +90,18 @@ class LocationDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.location_details_activity)
         extras = intent.extras
-        this.initActionBar()
+        initActionBar()
 
-        listCharacters = ArrayList()
-        adapter = RecyclerViewEpisodesCharactersAdapter(listCharacters!!, this)
+        adapter = RecyclerViewEpisodesCharactersAdapter(listCharacters, this)
         location_details_recyclerview.layoutManager = GridLayoutManager(this, 5)
-        location_details_recyclerview.adapter = adapter as RecyclerView.Adapter<*>
+        location_details_recyclerview.adapter = adapter
 
-        if (extras != null) {
-            locationDetails = extras!!.getSerializable("location_details") as Location
-            this.setValuesToViews()
-            listURLCharacters = locationDetails?.residents
-            listCharacters = ArrayList()
-            app = this
-            this.loadCharacters()
-            supportPostponeEnterTransition()
-            this.loadImage(locationDetails?.image, location_details_img_fullsize)
-        }
+        locationDetails = extras!!.getSerializable("location_details") as Location
+        setValuesToViews()
+        listURLCharacters = locationDetails.residents!!
+        loadCharacters()
+        supportPostponeEnterTransition()
+        loadImage(locationDetails.image, location_details_img_fullsize)
     }
 
     override fun onSupportNavigateUp(): Boolean {

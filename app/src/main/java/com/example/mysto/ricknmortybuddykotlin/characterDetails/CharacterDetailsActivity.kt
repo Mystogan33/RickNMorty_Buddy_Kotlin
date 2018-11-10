@@ -30,21 +30,21 @@ import kotlinx.android.synthetic.main.episode_details_activity.*
 
 class CharacterDetailsActivity : AppCompatActivity() {
 
-    internal var adapter: RecyclerViewEpisodesAdapter? = null
+    lateinit var adapter: RecyclerViewEpisodesAdapter
     internal var gson: Gson = Gson()
-    internal var sharedPreferences: SharedPreferences? = null
-    internal var characterDetails: Character? = null
-    internal var listURLEpisodes: MutableList<String>? = arrayListOf()
-    internal var listEpisodes: MutableList<Episode>? = arrayListOf()
-    internal var listEpisodesDetails: MutableList<Episode>? = arrayListOf()
-    internal var lastLocationURL: String? = ""
-    internal var lastLocationData: Location? = null
-    internal var idLastLocation: Int? = null
-    internal var originURL: String? = ""
-    internal var listLocations: MutableList<Location> = arrayListOf()
-    internal var originData: Location? = null
-    internal var idOrigin: Int? = null
-    internal var extras: Bundle? = null
+    private var sharedPreferences: SharedPreferences? = null
+    private var characterDetails: Character? = null
+    private var listURLEpisodes: MutableList<String>? = arrayListOf()
+    private var listEpisodes: MutableList<Episode>? = arrayListOf()
+    private var listEpisodesDetails: MutableList<Episode>? = arrayListOf()
+    private var lastLocationURL: String? = ""
+    private var lastLocationData: Location? = null
+    private var idLastLocation: Int? = null
+    private var originURL: String? = ""
+    private var listLocations: MutableList<Location> = arrayListOf()
+    private var originData: Location? = null
+    private var idOrigin: Int? = null
+    private var extras: Bundle? = null
 
     private fun setValuesToViews() {
         character_name.text = characterDetails!!.name
@@ -176,8 +176,7 @@ class CharacterDetailsActivity : AppCompatActivity() {
 
         listEpisodesDetails = ArrayList()
         adapter = RecyclerViewEpisodesAdapter(listEpisodesDetails!!, this)
-
-        if (extras != null) {
+        
             characterDetails = extras!!.getSerializable("personnage_details") as Character?
 
             this.setValuesToViews()
@@ -223,7 +222,6 @@ class CharacterDetailsActivity : AppCompatActivity() {
 
             this.loadImage(characterDetails!!.image, character_img)
 
-        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

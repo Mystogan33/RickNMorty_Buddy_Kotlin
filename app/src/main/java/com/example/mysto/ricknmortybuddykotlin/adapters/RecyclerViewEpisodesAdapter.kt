@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.recycler_view_item_episode.view.*
 
 
 class RecyclerViewEpisodesAdapter(
-    internal var listEpisodes: MutableList<Episode>,
+    internal var listEpisodes: List<Episode>,
     internal var mContext: AppCompatActivity
 ) : RecyclerView.Adapter<RecyclerViewEpisodesAdapter.MyViewHolder>() {
 
@@ -76,15 +76,12 @@ class RecyclerViewEpisodesAdapter(
     }
 
     fun refreshData(list: List<Episode>) {
-        listEpisodes = ArrayList()
-        listEpisodes.addAll(list)
+        listEpisodes = list
         notifyDataSetChanged()
     }
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         val imgEpisode: CircleImageView = itemView.rv_details_episode_img
-
     }
 
 

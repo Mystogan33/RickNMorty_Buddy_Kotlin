@@ -14,11 +14,12 @@ import com.example.mysto.ricknmortybuddykotlin.characterDetails.CharacterDetails
 import com.squareup.picasso.Callback
 import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
+import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.recycler_view_item_character.view.*
 
 
 class RecyclerViewEpisodesCharactersAdapter(
-    internal var listCharacters: MutableList<Character>,
+    internal var listCharacters: List<Character>,
     internal var mContext: AppCompatActivity
 ) : RecyclerView.Adapter<RecyclerViewEpisodesCharactersAdapter.MyViewHolder>() {
 
@@ -31,7 +32,7 @@ class RecyclerViewEpisodesCharactersAdapter(
 
         val imageView = holder.imgCharacter
 
-        Picasso.with(mContext.applicationContext)
+        Picasso.with(mContext)
             .load(listCharacters[position].image)
             .networkPolicy(NetworkPolicy.OFFLINE)
             .placeholder(R.drawable.ic_launcher_background)
@@ -39,7 +40,7 @@ class RecyclerViewEpisodesCharactersAdapter(
             .into(imageView, object : Callback {
                 override fun onSuccess() {}
                 override fun onError() {
-                    Picasso.with(mContext.applicationContext)
+                    Picasso.with(mContext)
                         .load(listCharacters[position].image)
                         .placeholder(R.drawable.ic_launcher_background)
                         .error(R.drawable.no_image)
@@ -59,7 +60,7 @@ class RecyclerViewEpisodesCharactersAdapter(
 
                 val optionsCompat =
                     ActivityOptionsCompat.makeSceneTransitionAnimation(mContext, imageView, "imageCharacter")
-                mContext.startActivity(intent, optionsCompat.toBundle())
+                    mContext.startActivity(intent, optionsCompat.toBundle())
 
             } else {
                 mContext.startActivity(intent)
@@ -72,15 +73,13 @@ class RecyclerViewEpisodesCharactersAdapter(
         return listCharacters.size
     }
 
-    fun refreshData(list: List<Character>?) {
-        listCharacters = arrayListOf()
-        list?.let { listCharacters.addAll(it) }
+    fun refreshData(list: List<Character>) {
+        listCharacters = list
         notifyDataSetChanged()
     }
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        val imgCharacter = itemView.rv_details_character_img
+        val imgCharacter: CircleImageView = itemView.rv_details_character_img
     }
 
 }
