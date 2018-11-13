@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerInParent="true">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            app:cardCornerRadius="50dp"
+            app:cardBackgroundColor="@color/colorValidate">
+
+            <TextView
+                android:id="@+id/charFragDiagTvAlive"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_gravity="center"
+                android:text="300 filtered characters alive"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="17dp"
+                android:padding="30dp"
+                android:textAlignment="center" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="20dp"
+            app:cardCornerRadius="50dp"
+            app:cardBackgroundColor="@color/colorDanger">
+
+            <TextView
+                android:id="@+id/charFragDiagTvDead"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_gravity="center"
+                android:text="100 filtered characters dead"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="17dp"
+                android:padding="30dp"
+                android:textAlignment="center" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="10dp"
+            app:cardCornerRadius="50dp"
+            app:cardBackgroundColor="@color/colorPrimary">
+
+            <TextView
+                android:id="@+id/charFragDiagTvUnknown"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_gravity="center"
+                android:text="100 filtered characters unknown"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="17sp"
+                android:padding="30dp"
+                android:textAlignment="center" />
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+</RelativeLayout>

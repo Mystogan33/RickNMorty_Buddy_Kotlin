@@ -2,7 +2,6 @@ package com.example.mysto.ricknmortybuddykotlin.Fragments.Characters
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.database.Cursor
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,13 +9,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.mysto.ricknmortybuddykotlin.Fragments.Characters.adapter.RecyclerViewAdapter
 import com.example.mysto.ricknmortybuddykotlin.Fragments.Characters.models.Character
 import com.example.mysto.ricknmortybuddykotlin.Fragments.Characters.models.RawCharactersServerResponse
 import com.example.mysto.ricknmortybuddykotlin.R
-import com.example.mysto.ricknmortybuddykotlin.db.DataBaseHelper
 import com.example.mysto.ricknmortybuddykotlin.interfaces.Refreshable
 import com.example.mysto.ricknmortybuddykotlin.network.RickNMortyAPI.GetDataService
 import com.example.mysto.ricknmortybuddykotlin.network.RickNMortyAPI.RetrofitClientInstance
@@ -67,6 +66,18 @@ class CharactersFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Ref
                 return true
             }
         })
+
+        root!!.charactersFragmentSearchViewMenu.setOnClickListener {
+
+            val ft : FragmentTransaction = fragmentManager!!.beginTransaction()
+            val prev : Fragment? = fragmentManager!!.findFragmentByTag("dialog")
+
+            if(prev != null) ft.remove(prev)
+            ft.addToBackStack(null)
+            val dialog = TabbedDialog.createInstance()
+            dialog.show(ft, "dialog")
+
+        }
 
         // Sequences of colors from the loading circle
         root!!.charactersFragmentSwipe_container.setColorSchemeResources(

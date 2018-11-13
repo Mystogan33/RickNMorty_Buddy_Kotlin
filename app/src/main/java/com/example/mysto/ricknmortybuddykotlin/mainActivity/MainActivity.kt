@@ -42,6 +42,12 @@ class MainActivity : AppCompatActivity() {
         this.initFragments()
         this.sendNotifications()
         this.setListeners()
+
+        mNotifier = NotificationHelperWelcomeBack(this)
+        mNotifier!!.createNotification(
+            "Welcome Back",
+            "Thanks to visit Rick & Morty ! Hope you get swifty. Stay connected !"
+        )
         //this.addTransitionAnimations()
     }
 
