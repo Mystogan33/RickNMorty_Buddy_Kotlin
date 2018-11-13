@@ -1,6 +1,7 @@
 package com.example.mysto.ricknmortybuddykotlin
 
 import android.app.Application
+import com.example.mysto.ricknmortybuddykotlin.db.DataBaseHelper
 import com.squareup.picasso.Picasso
 import com.jakewharton.picasso.OkHttp3Downloader
 
@@ -12,9 +13,9 @@ class Global : Application() {
         super.onCreate()
 
         val builder = Picasso.Builder(this)
-        builder.downloader(OkHttp3Downloader(this, Integer.MAX_VALUE.toLong()))
-        val built = builder.build()
-        Picasso.setSingletonInstance(built)
+            .downloader(OkHttp3Downloader(this, Integer.MAX_VALUE.toLong()))
+            .build()
+        Picasso.setSingletonInstance(builder)
     }
 
 }

@@ -110,6 +110,7 @@ class EpisodeDetailsActivity : AppCompatActivity() {
         episode_details_recyclerview.adapter = adapter
 
         webView.load("x62qgh0")
+        webView.pause()
 
         if (extras != null) {
 

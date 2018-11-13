@@ -18,6 +18,7 @@ import com.example.mysto.ricknmortybuddykotlin.R
 import com.example.mysto.ricknmortybuddykotlin.interfaces.Refreshable
 import com.example.mysto.ricknmortybuddykotlin.network.JsonBin.GetDataService
 import com.example.mysto.ricknmortybuddykotlin.network.JsonBin.RetrofitClientInstance
+import kotlinx.android.synthetic.main.episodes_fragment.*
 import kotlinx.android.synthetic.main.episodes_fragment.view.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -53,6 +54,7 @@ class EpisodesFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Refre
             override fun onQueryTextChange(userInput: String): Boolean {
                 val filterEpisodesList = setFilter(listEpisodes!!.results!!, userInput)
                 adapter!!.setFilter(filterEpisodesList)
+                root!!.episodesFragmentNumberOfItems.text = adapter!!.itemCount.toString()
                 return true
             }
         })
@@ -67,6 +69,7 @@ class EpisodesFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Refre
         if (json != null) {
             listEpisodes = gson.fromJson<RawEpisodesServerResponse>(json, RawEpisodesServerResponse::class.java)
             adapter!!.setFilter(listEpisodes!!.results!!)
+            root!!.episodesFragmentNumberOfItems.text = adapter!!.itemCount.toString()
         } else {
             root!!.episodesFragmentSwipeRefreshLayout.post {
                 root!!.episodesFragmentSwipeRefreshLayout.isRefreshing = true
@@ -89,6 +92,7 @@ class EpisodesFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Refre
                     .putString("Episodes_List", gson.toJson(listEpisodes))
                     .apply()
                 adapter!!.setFilter(listEpisodes!!.results!!)
+                root!!.episodesFragmentNumberOfItems.text = adapter!!.itemCount.toString()
                 root!!.episodesFragmentSwipeRefreshLayout.isRefreshing = false
             }
 

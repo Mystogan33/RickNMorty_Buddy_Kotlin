@@ -23,7 +23,7 @@
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             android:transitionName="imageLocation"
-            android:background="@color/tabindicatorcolor"/>
+            android:src="@drawable/no_image" />
 
         <LinearLayout
             android:layout_width="match_parent"

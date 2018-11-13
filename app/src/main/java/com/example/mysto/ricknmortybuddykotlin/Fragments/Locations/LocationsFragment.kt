@@ -65,6 +65,7 @@ class LocationsFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Refr
             override fun onQueryTextChange(userInput: String): Boolean {
                 val filterLocationsList = setFilter(listLocations!!, userInput)
                 adapter!!.setFilter(filterLocationsList)
+                root!!.locationsFragmentNumberOfItems.text = adapter!!.itemCount.toString()
                 return true
             }
         })
@@ -79,6 +80,7 @@ class LocationsFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Refr
             listLocations!!.sortWith(Comparator { loc2, loc1 -> loc2.name!!.compareTo(loc1!!.name!!) })
 
             adapter!!.setFilter(listLocations!!)
+            root!!.locationsFragmentNumberOfItems.text = adapter!!.itemCount.toString()
 
         } else {
             root!!.locationsFragmentSwipeRefreshLayout.post { loadRecyclerViewData() }
@@ -106,6 +108,7 @@ class LocationsFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Refr
                 listLocations!!.sortWith(Comparator { loc2, loc1 -> loc2.name!!.compareTo(loc1!!.name!!) })
 
                 adapter!!.setFilter(listLocations!!)
+                root!!.locationsFragmentNumberOfItems.text = adapter!!.itemCount.toString()
                 sharedPreferences!!.edit()
                     .putString("Locations_List", gson.toJson(rawLocationsResponse))
                     .apply()

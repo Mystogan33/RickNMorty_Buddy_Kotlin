@@ -2,6 +2,7 @@ package com.example.mysto.ricknmortybuddykotlin.Fragments.Characters
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.database.Cursor
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -36,7 +37,6 @@ class CharactersFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Ref
     internal var service: GetDataService = RetrofitClientInstance.retrofitInstance!!.create(GetDataService::class.java)
     internal var sharedPreferences: SharedPreferences? = null
     internal var adapter: RecyclerViewAdapter? = null
-    private lateinit var appDb : DataBaseHelper
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -49,7 +49,6 @@ class CharactersFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Ref
         root!!.charactersFragmentRecyclerView.adapter = adapter
 
         sharedPreferences = root!!.context.getSharedPreferences("APP_DATA", Context.MODE_PRIVATE)
-        appDb = DataBaseHelper(this.context)
 
 
         // Refresh Layout
@@ -64,6 +63,7 @@ class CharactersFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Ref
             override fun onQueryTextChange(userInput: String): Boolean {
                 val filterCharacterList = filter(rawCharactersServerResponse?.results, userInput)
                 adapter!!.setFilter(filterCharacterList)
+                root!!.charactersFragmentNumberOfItems.text = adapter!!.itemCount.toString()
                 return true
             }
         })
@@ -87,6 +87,7 @@ class CharactersFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Ref
             charactersList!!.sortWith(Comparator { character2, character1 -> character2!!.name!!.compareTo(character1!!.name!!) })
 
             adapter!!.setFilter(charactersList!!)
+            root!!.charactersFragmentNumberOfItems.text = adapter!!.itemCount.toString()
 
         } else {
             root!!.charactersFragmentSwipe_container.post {
@@ -115,6 +116,7 @@ class CharactersFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Ref
                 charactersList!!.sortWith(Comparator { character2, character1 -> character2!!.name!!.compareTo(character1!!.name!!) })
 
                 adapter!!.setFilter(charactersList!!)
+                root!!.charactersFragmentNumberOfItems.text = adapter!!.itemCount.toString()
 
                 Toast.makeText(root!!.context, "Vos données sont désormais sauvegardées", Toast.LENGTH_SHORT).show()
 
@@ -133,6 +135,7 @@ class CharactersFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Ref
                                 charactersList!!.sortWith(Comparator { character2, character1 -> character2!!.name!!.compareTo(character1!!.name!!) })
 
                                 adapter!!.setFilter(charactersList!!)
+                                root!!.charactersFragmentNumberOfItems.text = adapter!!.itemCount.toString()
                                 rawCharactersServerResponse!!.results = charactersList
 
                                 sharedPreferences!!.edit()

@@ -27,7 +27,6 @@
             app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
         <androidx.cardview.widget.CardView
-            app:layout_scrollFlags="scroll|enterAlways"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardUseCompatPadding="true"
@@ -39,23 +38,42 @@
             android:layout_marginRight="5dp"
             app:cardPreventCornerOverlap="false">
 
-            <androidx.appcompat.widget.SearchView
-                android:id="@+id/charactersFragmentSearchViewQuery"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
-                app:popupTheme="@style/AppTheme.PopupOverlay"
-                app:closeIcon="@android:drawable/ic_menu_close_clear_cancel"
-                app:iconifiedByDefault="false"
-                app:queryHint="@string/characters_fragment_query_hint" />
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/charactersFragmentSearchViewQuery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:popupTheme="@style/AppTheme.PopupOverlay"
+                    app:closeIcon="@android:drawable/ic_menu_close_clear_cancel"
+                    app:iconifiedByDefault="false"
+                    app:queryHint="@string/characters_fragment_query_hint" />
 
-            <ImageButton
-                android:layout_marginEnd="5dp"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_gravity="end|center_vertical"
-                android:id="@+id/imageViewSearchMenu"
-                style="?android:attr/actionOverflowButtonStyle"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="end|center_vertical">
+
+                <TextView
+                    android:id="@+id/charactersFragmentNumberOfItems"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:text="500"
+                    android:textSize="14sp"
+                    android:gravity="center_vertical"
+                    android:textAlignment="center"
+                    android:textColor="@color/tabtextcolor"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/round" />
+
+                <ImageButton
+                    android:id="@+id/imageViewSearchMenu"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_gravity="end|center_vertical"
+                    style="?android:attr/actionOverflowButtonStyle"/>
+
+            </LinearLayout>
 
         </androidx.cardview.widget.CardView>
     </com.google.android.material.appbar.AppBarLayout>
