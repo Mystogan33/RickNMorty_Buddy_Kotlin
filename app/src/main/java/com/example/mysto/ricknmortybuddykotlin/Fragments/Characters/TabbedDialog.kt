@@ -15,12 +15,8 @@ import kotlinx.android.synthetic.main.characters_fragment_dialog.view.*
 
 class TabbedDialog : DialogFragment() {
 
-    var listCharacters : String = ""
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        listCharacters = arguments!!.getString("listCharacters")!!
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
