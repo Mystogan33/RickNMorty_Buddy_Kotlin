@@ -59,6 +59,10 @@ class EpisodesFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Refre
             }
         })
 
+        root!!.episodesFragmentSearchViewMenu.setOnClickListener {
+            Toast.makeText(this.context, "Menu is not implemented yet", Toast.LENGTH_LONG).show()
+        }
+
         val sharedPreferences = root!!.context.getSharedPreferences("APP_DATA", Context.MODE_PRIVATE)
         val json = sharedPreferences.getString("Episodes_List", null)
 

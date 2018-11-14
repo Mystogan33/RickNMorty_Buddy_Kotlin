@@ -68,15 +68,8 @@ class CharactersFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Ref
         })
 
         root!!.charactersFragmentSearchViewMenu.setOnClickListener {
-
-            val ft : FragmentTransaction = fragmentManager!!.beginTransaction()
-            val prev : Fragment? = fragmentManager!!.findFragmentByTag("dialog")
-
-            if(prev != null) ft.remove(prev)
-            ft.addToBackStack(null)
-            val dialog = TabbedDialog.createInstance()
-            dialog.show(ft, "dialog")
-
+            val bottomSheetDialog = CharactersBottomSheetDialogFragment.getInstance()
+            bottomSheetDialog.show(fragmentManager, "Characters Filter Menu")
         }
 
         // Sequences of colors from the loading circle

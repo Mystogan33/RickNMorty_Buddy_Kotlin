@@ -16,7 +16,6 @@
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:backgroundTint="@color/colorAccent"
-        android:theme="@style/AppTheme.AppBarOverlay"
         android:elevation="0dp">
 
         <androidx.appcompat.widget.Toolbar
@@ -24,7 +23,6 @@
             android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
             android:elevation="0dp"/>
 
         <androidx.cardview.widget.CardView
@@ -44,7 +42,6 @@
                 android:id="@+id/episodesFragmentSearchView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:popupTheme="@style/AppTheme.PopupOverlay"
                 app:closeIcon="@android:drawable/ic_menu_close_clear_cancel"
                 app:iconifiedByDefault="false"
                 app:queryHint="@string/episodes_fragment_query_hint" />
@@ -68,7 +65,7 @@
                     android:background="@drawable/round" />
 
                 <ImageButton
-                    android:id="@+id/episodesFragmentSearchViewIcon"
+                    android:id="@+id/episodesFragmentSearchViewMenu"
                     android:layout_marginEnd="5dp"
                     android:layout_width="25dp"
                     android:layout_height="25dp"

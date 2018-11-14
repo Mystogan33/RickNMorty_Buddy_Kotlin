@@ -3,7 +3,5 @@
     android:layout_width="match_parent"
     android:layout_height="192dp"
     android:background="@drawable/location_details_background_alternate"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark"
-    android:orientation="vertical"
-    android:gravity="bottom">
+    android:orientation="vertical">
 </RelativeLayout>

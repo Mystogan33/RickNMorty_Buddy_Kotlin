@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".episodeDetails.EpisodeDetailsActivity"
-    android:background="@drawable/grad2"
-    android:fitsSystemWindows="true">
+    android:background="@drawable/grad2">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/episode_details_toolbar"

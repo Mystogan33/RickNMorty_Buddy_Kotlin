@@ -70,6 +70,10 @@ class LocationsFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Refr
             }
         })
 
+        root!!.locationsFragmentSearchViewMenu.setOnClickListener {
+            Toast.makeText(this.context, "Menu is not implemented yet", Toast.LENGTH_LONG).show()
+        }
+
         val json = sharedPreferences!!.getString("Locations_List", null)
 
         if (json != null) {
