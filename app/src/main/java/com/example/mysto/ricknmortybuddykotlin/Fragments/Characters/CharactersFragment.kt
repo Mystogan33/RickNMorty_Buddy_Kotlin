@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.mysto.ricknmortybuddykotlin.Fragments.Characters.adapter.RecyclerViewAdapter
@@ -67,11 +66,6 @@ class CharactersFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Ref
             }
         })
 
-        root!!.charactersFragmentSearchViewMenu.setOnClickListener {
-            val bottomSheetDialog = CharactersBottomSheetDialogFragment.getInstance()
-            bottomSheetDialog.show(fragmentManager, "Characters Filter Menu")
-        }
-
         // Sequences of colors from the loading circle
         root!!.charactersFragmentSwipe_container.setColorSchemeResources(
             android.R.color.holo_green_dark,
@@ -93,11 +87,24 @@ class CharactersFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Ref
             adapter!!.setFilter(charactersList!!)
             root!!.charactersFragmentNumberOfItems.text = adapter!!.itemCount.toString()
 
+
         } else {
             root!!.charactersFragmentSwipe_container.post {
                 root!!.charactersFragmentSwipe_container.isRefreshing = true
                 loadRecyclerViewData()
             }
+        }
+
+        root!!.charactersFragmentSearchViewMenu.setOnClickListener {
+
+            val ft = fragmentManager!!.beginTransaction()
+            val prev = fragmentManager!!.findFragmentByTag("dialog")
+            if (prev != null) {
+                ft.remove(prev)
+            }
+            ft.addToBackStack(null)
+            val dialogFragment = CharactersDialogFragment()
+            dialogFragment.show(ft, "dialog")
         }
 
         return root

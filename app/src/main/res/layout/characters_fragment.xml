@@ -68,7 +68,7 @@
                     android:layout_height="25dp"
                     android:layout_marginEnd="5dp"
                     android:layout_gravity="end|center_vertical"
-                    style="?android:attr/actionOverflowButtonStyle"/>
+                    android:background="@drawable/ic_filter_list_black_24dp"/>
 
             </LinearLayout>
 
