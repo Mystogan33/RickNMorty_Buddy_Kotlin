@@ -3,14 +3,17 @@ package com.example.mysto.ricknmortybuddykotlin.Fragments.Characters.adapter
 import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Build
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mysto.ricknmortybuddykotlin.R
 import com.squareup.picasso.Callback
@@ -19,6 +22,9 @@ import com.squareup.picasso.Picasso
 import com.example.mysto.ricknmortybuddykotlin.Fragments.Characters.models.Character
 import com.example.mysto.ricknmortybuddykotlin.characterDetails.CharacterDetailsActivity
 import kotlinx.android.synthetic.main.characters_fragment_item.view.*
+import android.widget.LinearLayout
+import timber.log.Timber
+
 
 class RecyclerViewAdapter(private val mContext: Fragment, private var listCharacters: MutableList<Character>?) :
     RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder>() {

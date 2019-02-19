@@ -42,10 +42,10 @@
                     android:id="@+id/charactersFragmentSearchViewQuery"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:popupTheme="@style/AppTheme.PopupOverlay"
                     app:closeIcon="@android:drawable/ic_menu_close_clear_cancel"
                     app:iconifiedByDefault="false"
-                    app:queryHint="@string/characters_fragment_query_hint" />
+                    app:queryHint="@string/characters_fragment_query_hint"
+                    android:theme="@style/AppTheme"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"

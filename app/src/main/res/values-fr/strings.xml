@@ -24,7 +24,7 @@
     <string name="characters_fragment_item_species">Espèce(s)</string>
     <string name="characters_fragment_item_gender">Genre</string>
     <string name="characters_fragment_item_origin">Origine</string>
-    <string name="characters_fragment_item_last_location">Dernière apparition</string>
+    <string name="characters_fragment_item_last_location">Dernier lieu</string>
 
     <string name="episodes_fragment_query_hint">Rechercher un épisode&#8230;</string>
 

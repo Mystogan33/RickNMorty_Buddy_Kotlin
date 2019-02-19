@@ -43,14 +43,18 @@
 
         <TextView
             android:id="@+id/character_name"
+            android:background="@drawable/round_outline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/imgUser"
             android:layout_centerHorizontal="true"
             android:fontFamily="sans-serif-light"
             android:text="Rick Sanchez"
+            android:layout_marginTop="5dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             android:textColor="@color/white"
-            android:textSize="32sp" />
+            android:textSize="24sp" />
 
 
         <TextView
@@ -70,6 +74,8 @@
 
     <LinearLayout
         android:id="@+id/linlay1"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/relay1"

@@ -23,7 +23,7 @@
     <string name="characters_fragment_item_species">Species</string>
     <string name="characters_fragment_item_gender">Gender</string>
     <string name="characters_fragment_item_origin">Origin</string>
-    <string name="characters_fragment_item_last_location">Last Location</string>
+    <string name="characters_fragment_item_last_location">Last appearance</string>
 
     <string name="episodes_fragment_query_hint">Search episode&#8230;</string>
 

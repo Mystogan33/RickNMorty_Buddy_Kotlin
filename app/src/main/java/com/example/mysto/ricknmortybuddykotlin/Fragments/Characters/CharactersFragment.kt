@@ -11,6 +11,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.mysto.ricknmortybuddykotlin.Fragments.Characters.adapter.RecyclerViewAdapter
 import com.example.mysto.ricknmortybuddykotlin.Fragments.Characters.models.Character
@@ -44,8 +45,9 @@ class CharactersFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Ref
 
         charactersList = ArrayList()
         adapter = RecyclerViewAdapter(this,charactersList)
-        root!!.charactersFragmentRecyclerView.layoutManager = GridLayoutManager(this.context , 2)
+        root!!.charactersFragmentRecyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         root!!.charactersFragmentRecyclerView.adapter = adapter
+        root!!.charactersFragmentRecyclerView.addItemDecoration(CharacterItemDecoration(20))
 
         sharedPreferences = root!!.context.getSharedPreferences("APP_DATA", Context.MODE_PRIVATE)
 
@@ -56,7 +58,7 @@ class CharactersFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, Ref
         // SearchView
         root!!.charactersFragmentSearchViewQuery.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(s: String): Boolean {
-                if (!charactersFragmentSearchViewQuery.isIconified) { charactersFragmentSearchViewQuery.isIconified = true }
+                if (root!!.charactersFragmentSearchViewQuery.isIconified) { root!!.charactersFragmentSearchViewQuery.isIconified = true }
                 return false
             }
             override fun onQueryTextChange(userInput: String): Boolean {
