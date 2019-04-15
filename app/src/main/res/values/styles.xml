@@ -35,4 +35,8 @@
         <item name="android:orientation">vertical</item>
     </style>
 
+    <style name="tab_layout_text_font" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:fontFamily">@font/get_schwifty</item>
+    </style>
+
 </resources>

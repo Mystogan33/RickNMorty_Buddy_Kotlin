@@ -43,7 +43,7 @@
                 android:id="@+id/locationsFragmentSearchView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:popupTheme="@style/AppTheme.PopupOverlay"
+                android:theme="@style/AppTheme"
                 app:closeIcon="@android:drawable/ic_menu_close_clear_cancel"
                 app:iconifiedByDefault="false"
                 app:queryHint="@string/locations_fragment_query_hint" />

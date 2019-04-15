@@ -39,6 +39,9 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="Name of Planet"
+                android:fontFamily="@font/rick_n_morty"
+                android:textSize="22sp"
+                android:textStyle="bold"
                 android:transitionName="nameLocation"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="5dp"
@@ -54,6 +57,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/locations_fragment_item_type"
+                    android:fontFamily="@font/rick_n_morty"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
                     android:textColor="@color/colorAccent"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
@@ -64,13 +70,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Planet Type"
+                    android:fontFamily="@font/calligraph_regular"
+                    android:textSize="16sp"
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:transitionName="typeLocation"
                     android:textColor="@color/colorValidate"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_marginTop="10dp"/>
+                    android:layout_marginTop="7dp"/>
 
             </LinearLayout>
 
@@ -83,6 +91,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/locations_fragment_item_dimension"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/rick_n_morty"
+                    android:textSize="22sp"
                     android:textColor="@color/colorAccent"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
@@ -93,13 +104,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Dimension C-137"
+                    android:fontFamily="@font/calligraph_regular"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:transitionName="dimensionLocation"
                     android:textColor="@color/colorValidate"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_marginTop="10dp"/>
+                    android:layout_marginTop="8dp"/>
             </LinearLayout>
 
         </LinearLayout>

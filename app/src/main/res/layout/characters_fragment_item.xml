@@ -33,12 +33,14 @@
                     android:id="@+id/personnage_fragment_item_name"
                     android:layout_width="wrap_content"
                     android:minWidth="50dp"
+                    android:fontFamily="@font/rick_n_morty"
+                    android:textStyle="bold"
                     android:layout_gravity="center_horizontal"
                     android:layout_height="wrap_content"
                     android:background="@drawable/round"
                     android:backgroundTint="@color/colorValidate"
                     android:textAlignment="center"
-                    android:textSize="12sp"
+                    android:textSize="18sp"
                     android:maxLines="1"
                     android:ellipsize="end"
                     android:layout_marginStart="5dp"
@@ -46,7 +48,6 @@
                     android:layout_marginTop="-15dp"
                     android:textColor="@color/white"
                     android:text="Diablo Verde"
-                    android:textStyle="italic|bold"
                     android:gravity="center"
                     android:layout_marginBottom="5dp" />
 
@@ -60,7 +61,8 @@
                     android:layout_marginStart="5dp"
                     android:layout_marginBottom="5dp"
                     android:textColor="#FF4081"
-                    android:textSize="13sp"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/calligraphr_regular"
                     android:textStyle="bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -73,7 +75,8 @@
                     android:layout_marginBottom="5dp"
                     android:gravity="end"
                     android:textColor="#66bb6a"
-                    android:textSize="12sp"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/rick_n_morty"
                     android:textStyle="bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -94,14 +97,15 @@
                     android:layout_marginBottom="5dp"
                     android:textColor="#FF4081"
                     android:textStyle="bold"
-                    android:textSize="12sp"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/calligraphr_regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/characters_fragment_item_species"/>
 
                 <TextView
                     android:id="@+id/personnage_fragment_item_species"
-                    android:layout_toRightOf="@id/species_placeholder"
+                    android:layout_toEndOf="@id/species_placeholder"
                     android:textAlignment="textEnd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -114,7 +118,8 @@
                     android:maxLines="1"
                     android:text="Demon, Humain"
                     android:textColor="#66bb6a"
-                    android:textSize="13sp" />
+                    android:textSize="20sp"
+                    android:fontFamily="@font/rick_n_morty" />
 
             </RelativeLayout>
 
@@ -124,7 +129,8 @@
                 android:background="#004d40">
 
                 <TextView
-                    android:textSize="13sp"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/calligraphr_regular"
                     android:layout_marginTop="5dp"
                     android:layout_marginStart="5dp"
                     android:layout_marginBottom="5dp"
@@ -136,7 +142,8 @@
 
                 <TextView
                     android:id="@+id/personnage_fragment_item_gender"
-                    android:textSize="12sp"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/rick_n_morty"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="5dp"
                     android:textColor="#66bb6a"
@@ -155,7 +162,8 @@
 
                 <TextView
                     android:id="@+id/origin_placeholder"
-                    android:textSize="12sp"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/calligraphr_regular"
                     android:layout_marginTop="5dp"
                     android:layout_marginStart="5dp"
                     android:layout_marginBottom="5dp"
@@ -167,7 +175,8 @@
 
                 <TextView
                     android:id="@+id/personnage_fragment_item_origin"
-                    android:textSize="13sp"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/rick_n_morty"
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="5dp"
@@ -181,7 +190,7 @@
                     android:textAlignment="textEnd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Dead"/>
+                    android:text="Earth C-137"/>
 
             </RelativeLayout>
 
@@ -201,7 +210,8 @@
                     android:text="@string/characters_fragment_item_last_location"
                     android:textColor="#FF4081"
                     android:textStyle="bold"
-                    android:textSize="12sp" />
+                    android:textSize="16sp"
+                    android:fontFamily="@font/calligraphr_regular" />
 
                 <TextView
                     android:id="@+id/personnage_fragment_item_last_location"
@@ -218,7 +228,8 @@
                     android:ellipsize="end"
                     android:text="Earth (Replacement Dimension)"
                     android:textColor="#66bb6a"
-                    android:textSize="13sp" />
+                    android:textSize="18sp"
+                    android:fontFamily="@font/rick_n_morty" />
 
             </RelativeLayout>
 

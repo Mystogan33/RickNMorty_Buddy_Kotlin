@@ -27,7 +27,8 @@
 
         <TextView
             android:id="@+id/episode_fragment_item_name"
-            android:textSize="12sp"
+            android:textSize="20sp"
+            android:fontFamily="@font/rick_n_morty"
             android:transitionName="nameEpisode"
             android:ellipsize="end"
             android:maxLines="1"
@@ -42,16 +43,17 @@
 
         <TextView
             android:id="@+id/episode_fragment_item_season"
-            android:textSize="12sp"
+            android:textSize="20sp"
+            android:fontFamily="@font/rick_n_morty"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="3dp"
-            android:textColor="#ffff"
+            android:textColor="@color/colorValidate"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="S01EP01"/>
+            android:text="Saison 1 Episode 2"/>
 
     </LinearLayout>
 

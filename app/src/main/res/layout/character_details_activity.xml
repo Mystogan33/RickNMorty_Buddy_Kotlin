@@ -48,13 +48,13 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/imgUser"
             android:layout_centerHorizontal="true"
-            android:fontFamily="sans-serif-light"
+            android:fontFamily="@font/rick_n_morty"
             android:text="Rick Sanchez"
             android:layout_marginTop="5dp"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
             android:textColor="@color/white"
-            android:textSize="24sp" />
+            android:textSize="28sp" />
 
 
         <TextView
@@ -64,7 +64,7 @@
             android:layout_below="@+id/character_name"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="5dp"
-            android:fontFamily="sans-serif"
+            android:fontFamily="@font/calligraph_regular"
             android:text="Human, Demon, Escalope de Porc"
             android:textAllCaps="true"
             android:textColor="@color/colorAccent"
@@ -95,21 +95,22 @@
                 android:id="@+id/character_gender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-light"
+                android:fontFamily="@font/rick_n_morty"
                 android:text="Male"
                 android:gravity="center"
                 android:textColor="@color/colorValidate"
-                android:textSize="25sp" />
+                android:textSize="25sp"
+                android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
+                android:fontFamily="@font/calligraph_regular"
                 android:text="@string/character_details_gender"
                 android:textAllCaps="true"
                 android:textColor="@color/colorAccent"
                 android:gravity="center"
-                android:textSize="13sp" />
+                android:textSize="16sp" />
 
         </LinearLayout>
 
@@ -127,19 +128,20 @@
                 android:id="@+id/character_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-light"
+                android:fontFamily="@font/rick_n_morty"
                 android:text="Alive"
+                android:textStyle="bold"
                 android:textColor="@color/white"
                 android:textSize="25sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-light"
+                android:fontFamily="@font/calligraph_regular"
                 android:text="@string/character_details_status"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
-                android:textSize="13sp" />
+                android:textSize="16sp" />
 
         </LinearLayout>
 
@@ -186,7 +188,9 @@
                             android:layout_height="wrap_content"
                             android:text="@string/character_details_origin"
                             android:textColor="@color/colorAccent"
-                            android:textSize="17sp" />
+                            android:fontFamily="@font/rick_n_morty"
+                            android:textSize="22sp"
+                            android:textStyle="bold"/>
 
                         <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                             android:id="@+id/origin_img"
@@ -206,7 +210,7 @@
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="7dp"
                             android:layout_toEndOf="@id/origin_img"
-                            android:fontFamily="sans-serif-light"
+                            android:fontFamily="@font/calligraph_regular"
                             android:text="Earth (C-137)"
                             android:textColor="@color/colorValidate"
                             android:textSize="18sp" />
@@ -233,7 +237,9 @@
                             android:layout_height="wrap_content"
                             android:text="@string/character_details_last_location"
                             android:textColor="@color/colorAccent"
-                            android:textSize="17sp"
+                            android:fontFamily="@font/rick_n_morty"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
                             android:layout_marginTop="10dp"/>
 
                         <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -254,7 +260,7 @@
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="8dp"
                             android:layout_toEndOf="@id/last_location_img"
-                            android:fontFamily="sans-serif-light"
+                            android:fontFamily="@font/calligraph_regular"
                             android:text="Earth (C-137)"
                             android:textColor="@color/colorValidate"
                             android:textSize="18sp" />
@@ -283,13 +289,15 @@
                             android:layout_height="wrap_content"
                             android:text="@string/character_details_description"
                             android:textColor="@color/colorAccent"
-                            android:textSize="17sp" />
+                            android:fontFamily="@font/rick_n_morty"
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/character_description"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="sans-serif-light"
+                            android:fontFamily="@font/calligraph_regular"
                             android:text="Aucune description disponible"
                             android:textColor="@color/colorValidate"
                             android:textSize="18sp" />
@@ -321,7 +329,9 @@
                         android:layout_height="wrap_content"
                         android:text="@string/character_details_episodes_placeholder_text"
                         android:textAlignment="center"
-                        android:elevation="20dp"
+                        android:elevation="25dp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/rick_n_morty"
                         android:textColor="@color/white"
                         android:textSize="18sp" />
 

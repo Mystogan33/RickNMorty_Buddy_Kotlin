@@ -98,6 +98,7 @@
                 app:tabGravity="fill"
                 app:tabMode="fixed"
                 app:tabTextColor="@color/tabtextcolor"
+                app:tabTextAppearance="@style/tab_layout_text_font"
                 app:tabSelectedTextColor="@color/colorAccent"
                 app:tabIndicatorColor="@color/colorAccent"
                 app:tabBackground="@color/tabindicatorcolor" />

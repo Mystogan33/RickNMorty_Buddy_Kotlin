@@ -71,7 +71,9 @@
                         android:layout_marginTop="5dp"
                         android:text="S01EP01"
                         android:textColor="@color/colorValidate"
-                        android:textStyle="bold" />
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/rick_n_morty" />
 
                     <View
                         android:id="@+id/season_underscore"
@@ -90,7 +92,8 @@
                         android:layout_marginTop="5dp"
                         android:text="Walaladubdub !"
                         android:textColor="@color/colorValidate"
-                        android:textSize="15sp"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/calligraph_regular"
                         android:layout_below="@+id/season_underscore"
                         android:layout_marginStart="15dp"/>
 
@@ -113,6 +116,8 @@
                         android:layout_marginTop="5dp"
                         android:text="December 2, 2013"
                         android:textColor="@color/colorValidate"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/rick_n_morty"
                         android:textStyle="bold"
                         android:textAlignment="center"
                         android:layout_below="@id/name_underscore"/>
@@ -155,7 +160,8 @@
                             android:layout_gravity="center"
                             android:layout_marginTop="5dp"
                             android:text="Description"
-                            android:textSize="18sp"
+                            android:textSize="20sp"
+                            android:fontFamily="@font/rick_n_morty"
                             android:textColor="@color/colorValidate"
                             android:textStyle="bold"
                             android:textAlignment="center"/>
@@ -177,11 +183,11 @@
                             android:layout_marginEnd="8dp"
                             android:layout_marginStart="8dp"
                             android:layout_marginTop="5dp"
-                            android:padding="8dp"
                             android:text="@string/cheese_ipsum"
                             android:textAlignment="center"
                             android:textColor="@color/colorValidate"
-                            android:textSize="18sp" />
+                            android:textSize="16sp"
+                            android:fontFamily="@font/calligraph_regular"/>
 
                     </LinearLayout>
 
@@ -210,7 +216,8 @@
                             android:text="@string/episode_details_separator_text"
                             android:textAlignment="center"
                             android:textColor="@color/white"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            android:fontFamily="@font/rick_n_morty"/>
 
                         <androidx.cardview.widget.CardView
                             android:layout_width="match_parent"
